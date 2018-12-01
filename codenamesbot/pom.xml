@@ -16,12 +16,17 @@
       <scope>test</scope>
     </dependency>
 
-
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>LATEST</version>
       <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.telegram</groupId>
+      <artifactId>telegrambots</artifactId>
+      <version>LATEST</version>
     </dependency>
 
   </dependencies>
