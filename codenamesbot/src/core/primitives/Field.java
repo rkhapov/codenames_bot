@@ -76,20 +76,11 @@ public class Field {
         width * getMaxCardWidth(), height * getMaxCardHeight(),
         BufferedImage.TYPE_INT_RGB);
     var graphics = image.createGraphics();
-    System.out.println(image.getHeight());
-    System.out.println(image.getWidth());
 
     for (var i = 0; i < height; i++) {
       for (var j = 0; j < width; j++) {
         var cardImage = getCardImage(field.get(i).get(j));
         graphics.drawImage(cardImage, j * getMaxCardWidth(), i * getMaxCardHeight(), null);
-        System.out.println(field.get(i).get(j).getWord());
-
-        try {
-          ImageIO.write(cardImage, "jpg", new File(ResourceProvider.combinePathToResourcesDir(field.get(i).get(j).getWord() + ".jpg")));
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
       }
     }
 
