@@ -8,7 +8,7 @@ public interface IGame {
 
   Color getTurnOrder();
 
-  void makeTurn(int amount, Collection<String> selectedWords);
+  void selectCard(String word);
 
   GameState getState();
 }
