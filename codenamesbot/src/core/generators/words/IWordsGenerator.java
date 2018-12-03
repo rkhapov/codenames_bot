@@ -2,8 +2,8 @@ package core.generators.words;
 
 import core.generators.GeneratorException;
 import core.generators.words.dictionaries.DictionaryMode;
-import java.util.Collection;
+import java.util.List;
 
 public interface IWordsGenerator {
-  Collection<String> getWords(int amount, DictionaryMode mode) throws GeneratorException;
+  List<String> getWords(int amount, DictionaryMode mode) throws GeneratorException;
 }
