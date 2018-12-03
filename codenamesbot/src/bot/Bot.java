@@ -1,10 +1,16 @@
 package bot;
 
+import core.generators.cards.CardsGenerator;
+import core.generators.words.WordsGenerator;
+import core.primitives.Field;
+import java.io.File;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import tools.ResourceProvider;
 
 public class Bot extends TelegramLongPollingBot {
 
@@ -37,9 +43,10 @@ public class Bot extends TelegramLongPollingBot {
   }
 
   private synchronized void sendMessage(String message, Long chatId) throws TelegramApiException {
-    var sendMessage = new SendMessage(chatId, message);
-    sendMessage.enableMarkdown(true);
+    var sendPhoto = new SendPhoto();
+    sendPhoto.setPhoto(new File(ResourceProvider.combinePathToResourcesDir("myimg.jpg")));
+    sendPhoto.setChatId(chatId);
 
-    execute(sendMessage);
+    execute(sendPhoto);
   }
 }
