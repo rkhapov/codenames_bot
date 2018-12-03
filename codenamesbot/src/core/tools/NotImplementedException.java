@@ -1,4 +1,4 @@
-package tools;
+package core.tools;
 
 public class NotImplementedException extends RuntimeException {
   public NotImplementedException(String message) {

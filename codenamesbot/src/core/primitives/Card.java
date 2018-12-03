@@ -1,5 +1,7 @@
 package core.primitives;
 
+import core.tools.NotImplementedException;
+
 public class Card {
   private final String word;
   private final Color color;
@@ -19,11 +21,11 @@ public class Card {
 
   @Override
   public boolean equals(Object obj) {
-    throw new tools.NotImplementedException();
+    throw new NotImplementedException();
   }
 
   @Override
   public int hashCode() {
-    throw new tools.NotImplementedException();
+    throw new NotImplementedException();
   }
 }

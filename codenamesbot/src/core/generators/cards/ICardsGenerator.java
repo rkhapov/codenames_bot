@@ -1,4 +1,4 @@
-package core.tools;
+package core.generators.cards;
 
 import core.primitives.Card;
 import java.util.Collection;
