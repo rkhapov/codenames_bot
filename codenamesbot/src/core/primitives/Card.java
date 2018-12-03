@@ -4,10 +4,12 @@ public class Card {
 
   private final String word;
   private final Color color;
+  private boolean isOpen;
 
   public Card(String word, Color color) {
     this.word = word;
     this.color = color;
+    isOpen = false;
   }
 
   public static Card create(String word, Color color) {
@@ -20,6 +22,18 @@ public class Card {
 
   public Color getColor() {
     return color;
+  }
+
+  public void open() {
+    isOpen = true;
+  }
+
+  public void close() {
+    isOpen = false;
+  }
+
+  public boolean isOpen() {
+    return isOpen;
   }
 
   @Override

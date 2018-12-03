@@ -7,6 +7,7 @@ import core.generators.words.dictionaries.DictionaryMode;
 import core.primitives.Card;
 import core.primitives.Color;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CardsGenerator implements ICardsGenerator {
@@ -24,7 +25,11 @@ public class CardsGenerator implements ICardsGenerator {
       throw new IllegalArgumentException("Invalid cards set");
     }
 
-    return getCardsForWords(wordsGenerator.getWords(total, DictionaryMode.Standard), blue, red);
+    var cards = getCardsForWords(
+        wordsGenerator.getWords(total, DictionaryMode.Standard), blue, red);
+    Collections.shuffle(cards);
+
+    return cards;
   }
 
   private List<Card> getCardsForWords(List<String> words, int blue, int red) {
