@@ -1,6 +1,7 @@
 package bot;
 
 import core.generators.cards.CardsGenerator;
+import core.generators.field.FieldGenerator;
 import core.generators.words.WordsGenerator;
 import core.primitives.Field;
 import java.io.File;

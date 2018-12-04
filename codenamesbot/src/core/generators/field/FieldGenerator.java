@@ -34,7 +34,7 @@ public class FieldGenerator implements IFieldGenerator {
       field.add(new ArrayList<>(width));
 
       for (var j = 0; j < width; j++) {
-        var card = cards.get(i * height + j);
+        var card = cards.get(i * width + j);
 
         field.get(i).add(card);
       }
