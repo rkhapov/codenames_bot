@@ -29,13 +29,12 @@ public class FieldGenerator implements IFieldGenerator {
       int height, int width, int blue, int red) throws GeneratorException {
     var field = new ArrayList<List<Card>>(height);
     var cards = cardsGenerator.getCards(height * width, blue, red);
-    var iter = cards.iterator();
 
     for (var i = 0; i < height; i++) {
       field.add(new ArrayList<>(width));
 
       for (var j = 0; j < width; j++) {
-        var card = iter.next();
+        var card = cards.get(i * height + j);
 
         field.get(i).add(card);
       }

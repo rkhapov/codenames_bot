@@ -32,10 +32,6 @@ public class Pair<T1, T2> {
     if (obj instanceof Pair) {
       var other = (Pair)obj;
 
-      //todo: remove this shit
-      if (first.getClass() != other.first.getClass() || second.getClass() != other.second.getClass())
-        return false;
-
       return first.equals(other.first) && second.equals(other.second);
     }
 
