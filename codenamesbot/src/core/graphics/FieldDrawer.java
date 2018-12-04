@@ -7,6 +7,14 @@ import java.awt.image.BufferedImage;
 public class FieldDrawer {
 
   public static BufferedImage getImageForCaptains(Field field) {
+    return getImageOfField(field, true);
+  }
+
+  public static BufferedImage getImageForPlayer(Field field) {
+    return getImageOfField(field, false);
+  }
+
+  private static BufferedImage getImageOfField(Field field, boolean isCaptain) {
     var maxCardWidth = getMaxCardWidth(field);
     var maxCardHeight = getMaxCardHeight(field);
     var height = field.getHeight();
@@ -22,7 +30,10 @@ public class FieldDrawer {
     for (var i = 0; i < height; i++) {
       for (var j = 0; j < width; j++) {
         var card = field.get(i, j);
-        var cardImage = CardDrawer.getCardImageForCaptain(card, maxCardHeight, maxCardWidth);
+        var cardImage =
+            isCaptain ?
+                CardDrawer.getCardImageForCaptain(card, maxCardHeight, maxCardWidth)
+                : CardDrawer.getCardImageForPlayer(card, maxCardHeight, maxCardWidth);
         var x = j * maxCardWidth;
         var y = i * maxCardHeight;
 
