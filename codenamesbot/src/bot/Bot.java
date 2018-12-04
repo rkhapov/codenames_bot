@@ -57,11 +57,14 @@ public class Bot extends TelegramLongPollingBot {
     return Constants.Token;
   }
 
-  private synchronized void sendPhoto(Long chatId, BufferedImage image) {
+  private synchronized void sendPhoto(Long chatId, BufferedImage image)
+      throws TelegramApiException {
     var sendPhoto = new SendPhoto();
     sendPhoto.setChatId(chatId);
 
     sendPhoto.setPhoto("aa", bufferedImgToInputStream(image));
+
+    execute(sendPhoto);
   }
 
   private synchronized void sendMessage(String message, Long chatId) throws TelegramApiException {
