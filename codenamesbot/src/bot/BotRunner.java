@@ -1,5 +1,6 @@
 package bot;
 
+import core.game.IGame;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 import org.telegram.telegrambots.ApiContextInitializer;
@@ -11,7 +12,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
 public class BotRunner {
 
-  public static void run() throws TelegramApiRequestException {
+  public static void run(IGame game) throws TelegramApiRequestException {
     ApiContextInitializer.init();
     Authenticator.setDefault(new Authenticator() {
       @Override
@@ -27,6 +28,6 @@ public class BotRunner {
     botOptions.setProxyPort(Constants.ProxyPort);
     botOptions.setProxyType(ProxyType.SOCKS5);
 
-    new TelegramBotsApi().registerBot(new Bot(botOptions));
+    new TelegramBotsApi().registerBot(new Bot(botOptions, game));
   }
 }

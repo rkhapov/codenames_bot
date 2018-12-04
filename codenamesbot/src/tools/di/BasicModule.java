@@ -1,6 +1,8 @@
 package tools.di;
 
 import com.google.inject.AbstractModule;
+import core.game.Game;
+import core.game.IGame;
 import core.generators.cards.CardsGenerator;
 import core.generators.cards.ICardsGenerator;
 import core.generators.field.FieldGenerator;
@@ -15,5 +17,6 @@ public class BasicModule extends AbstractModule {
     bind(IWordsGenerator.class).to(WordsGenerator.class);
     bind(ICardsGenerator.class).to(CardsGenerator.class);
     bind(IFieldGenerator.class).to(FieldGenerator.class);
+    bind(IGame.class).to(Game.class);
   }
 }

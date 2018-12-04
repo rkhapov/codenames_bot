@@ -1,14 +1,17 @@
 package core.game;
 
 import core.primitives.Color;
+import core.primitives.Field;
 import core.primitives.GameState;
 import java.util.Collection;
 
 public interface IGame {
 
-  Color getTurnOrder();
+  void restart();
 
-  void selectCard(String word);
+  void openCard(String word);
+
+  Field getField();
 
   GameState getState();
 }

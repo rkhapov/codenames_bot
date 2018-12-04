@@ -1,16 +1,13 @@
 package bot;
 
 import core.commands.CommandSelector;
-import core.generators.cards.CardsGenerator;
-import core.generators.field.FieldGenerator;
-import core.generators.words.WordsGenerator;
-import core.primitives.Field;
+import core.game.IGame;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import javax.imageio.ImageIO;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -18,12 +15,14 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import tools.ResourceProvider;
 
 public class Bot extends TelegramLongPollingBot {
 
-  public Bot(DefaultBotOptions options) {
+  private IGame game;
+
+  public Bot(DefaultBotOptions options, IGame game) {
     super(options);
+    this.game = game;
   }
 
   @Override
@@ -31,9 +30,10 @@ public class Bot extends TelegramLongPollingBot {
     var message = update.getMessage();
     var text = message.getText();
     var id = update.getMessage().getChatId();
+    var parts = text.split(" ");
 
-    var cmd = CommandSelector.getCommandByString(text);
-    var result = cmd.execute();
+    var cmd = CommandSelector.getCommandByString(parts[0]);
+    var result = cmd.execute(game, Arrays.asList(parts));
 
     try {
       if(result.getMessage() != null)
