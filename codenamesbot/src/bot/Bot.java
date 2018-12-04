@@ -1,5 +1,6 @@
 package bot;
 
+import core.commands.CommandSelector;
 import core.generators.cards.CardsGenerator;
 import core.generators.field.FieldGenerator;
 import core.generators.words.WordsGenerator;
@@ -24,10 +25,12 @@ public class Bot extends TelegramLongPollingBot {
     var message = update.getMessage();
     var text = message.getText();
     var id = update.getMessage().getChatId();
-    var back = String.format("Congrats! You send: **%s**", text);
+
+    var cmd = CommandSelector.getCommandByString(text);
+    var result = cmd.execute();
 
     try {
-      sendMessage(back, id);
+      sendMessage(result.getMessage(), id);
     } catch (TelegramApiException e) {
       e.printStackTrace();
     }
@@ -44,10 +47,10 @@ public class Bot extends TelegramLongPollingBot {
   }
 
   private synchronized void sendMessage(String message, Long chatId) throws TelegramApiException {
-    var sendPhoto = new SendPhoto();
-    sendPhoto.setPhoto(new File(ResourceProvider.combinePathToResourcesDir("myimg.jpg")));
-    sendPhoto.setChatId(chatId);
+    var sendMessage = new SendMessage();
+    sendMessage.setChatId(chatId);
+    sendMessage.setText(message);
 
-    execute(sendPhoto);
+    execute(sendMessage);
   }
 }
