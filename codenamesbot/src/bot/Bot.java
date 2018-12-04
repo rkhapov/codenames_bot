@@ -5,7 +5,13 @@ import core.generators.cards.CardsGenerator;
 import core.generators.field.FieldGenerator;
 import core.generators.words.WordsGenerator;
 import core.primitives.Field;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -30,7 +36,12 @@ public class Bot extends TelegramLongPollingBot {
     var result = cmd.execute();
 
     try {
-      sendMessage(result.getMessage(), id);
+      if(result.getMessage() != null)
+        sendMessage(result.getMessage(), id);
+      if(result.getImages() != null)
+        for(var img : result.getImages()) {
+          sendPhoto(id, img);
+        }
     } catch (TelegramApiException e) {
       e.printStackTrace();
     }
@@ -46,11 +57,28 @@ public class Bot extends TelegramLongPollingBot {
     return Constants.Token;
   }
 
+  private synchronized void sendPhoto(Long chatId, BufferedImage image) {
+    var sendPhoto = new SendPhoto();
+    sendPhoto.setChatId(chatId);
+
+    sendPhoto.setPhoto("aa", bufferedImgToInputStream(image));
+  }
+
   private synchronized void sendMessage(String message, Long chatId) throws TelegramApiException {
     var sendMessage = new SendMessage();
     sendMessage.setChatId(chatId);
     sendMessage.setText(message);
 
     execute(sendMessage);
+  }
+
+  private static InputStream bufferedImgToInputStream(BufferedImage image) {
+    var os = new ByteArrayOutputStream();
+    try {
+      ImageIO.write(image, "jpg", os);
+    } catch (IOException e) {
+      //impossible
+    }
+    return new ByteArrayInputStream(os.toByteArray());
   }
 }

@@ -9,6 +9,6 @@ public class GetCaptainPictureCommand implements ICommand {
 
   @Override
   public String getStringCommand() {
-    return "/get";
+    return "/getc";
   }
 }
