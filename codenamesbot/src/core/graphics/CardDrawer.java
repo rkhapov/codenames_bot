@@ -53,7 +53,7 @@ public class CardDrawer {
     var color = card.getColor();
 
     if (!isCaptain && !card.isOpen()) {
-      return Color.LIGHT_GRAY;
+      return Color.GRAY;
     }
 
     if (color == core.primitives.Color.Black) {

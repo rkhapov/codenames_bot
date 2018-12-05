@@ -1,5 +1,6 @@
 package bot;
 
+import core.commands.CommandResult;
 import core.commands.CommandSelector;
 import core.game.IGame;
 import java.awt.image.BufferedImage;
@@ -33,15 +34,18 @@ public class Bot extends TelegramLongPollingBot {
     var parts = text.split(" ");
 
     var cmd = CommandSelector.getCommandByString(parts[0]);
-    var result = cmd.execute(game, Arrays.asList(parts));
+    var result = cmd != null ? cmd.execute(game, Arrays.asList(parts))
+        : new CommandResult("Unknown command", null);
 
     try {
-      if(result.getMessage() != null)
+      if (result.getMessage() != null) {
         sendMessage(result.getMessage(), id);
-      if(result.getImages() != null)
-        for(var img : result.getImages()) {
+      }
+      if (result.getImages() != null) {
+        for (var img : result.getImages()) {
           sendPhoto(id, img);
         }
+      }
     } catch (TelegramApiException e) {
       e.printStackTrace();
     }
