@@ -33,9 +33,8 @@ public class StandardDictionary implements IDictionary {
   }
 
   private void fill() throws GeneratorException {
-    String pathname = ResourceProvider.combinePathToResourcesDir(Paths.StandardDictionaryPath);
     var wordsFile = new File(
-        pathname);
+        ResourceProvider.combinePathToResourcesDir(Paths.StandardDictionaryPath));
 
     try(var scanner = new Scanner(wordsFile)) {
       words = new ArrayList<>();

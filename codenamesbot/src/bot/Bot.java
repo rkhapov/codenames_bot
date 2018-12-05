@@ -1,5 +1,6 @@
 package bot;
 
+import com.google.inject.Guice;
 import core.commands.CommandResult;
 import core.commands.CommandSelector;
 import core.game.IGame;
