@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface ICommand {
   CommandResult execute(IGame game, List<String> args);
-  String getStringCommand();
+  String getName();
 }

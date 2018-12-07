@@ -1,32 +1,25 @@
 package core.generators.words;
 
+import com.google.inject.Inject;
 import core.generators.GeneratorException;
 import core.generators.words.dictionaries.DictionaryMode;
 import core.generators.words.dictionaries.IDictionary;
-import core.tools.RandomHelper;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.reflections.Reflections;
+import java.util.Set;
+import tools.Utils;
 
 public class WordsGenerator implements IWordsGenerator {
 
-  private static final Map<DictionaryMode, IDictionary> modeToDictionary;
+  private final Map<DictionaryMode, IDictionary> modeToDictionary;
 
-  static {
-    var reflections = new Reflections("core.generators.words.dictionaries");
-    var dictClasses = reflections.getSubTypesOf(IDictionary.class);
+  @Inject
+  public WordsGenerator(Set<IDictionary> dictionaries) {
     modeToDictionary = new HashMap<>();
 
-    for (var dictClass : dictClasses) {
-      try {
-        var ctor = dictClass.getConstructor();
-        var instance = ctor.newInstance();
-
-        modeToDictionary.put(instance.getMode(), instance);
-      } catch (Exception e) {
-        //nothing to do: broken dictionary
-      }
+    for (var dict : dictionaries) {
+      modeToDictionary.put(dict.getMode(), dict);
     }
   }
 
@@ -39,6 +32,6 @@ public class WordsGenerator implements IWordsGenerator {
           String.format("No any dictionary for mode %s are presented", mode.toString()));
     }
 
-    return RandomHelper.getRandomElementsFromList(dictionary.getWords(), amount);
+    return Utils.getRandomElementsFromList(dictionary.getWords(), amount);
   }
 }

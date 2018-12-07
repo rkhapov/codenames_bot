@@ -1,20 +1,20 @@
-package core.graphics;
+package core.graphics.field;
 
+import core.graphics.cards.ICardDrawer;
 import core.primitives.Field;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
-public class FieldDrawer {
+public abstract class FieldDrawer implements IFieldDrawer {
 
-  public static BufferedImage getImageForCaptains(Field field) {
-    return getImageOfField(field, true);
+  private final ICardDrawer cardDrawer;
+
+  protected FieldDrawer(ICardDrawer cardDrawer) {
+    this.cardDrawer = cardDrawer;
   }
 
-  public static BufferedImage getImageForPlayer(Field field) {
-    return getImageOfField(field, false);
-  }
-
-  private static BufferedImage getImageOfField(Field field, boolean isCaptain) {
+  @Override
+  public BufferedImage getImage(Field field) {
     var maxCardWidth = getMaxCardWidth(field);
     var maxCardHeight = getMaxCardHeight(field);
     var height = field.getHeight();
@@ -30,10 +30,7 @@ public class FieldDrawer {
     for (var i = 0; i < height; i++) {
       for (var j = 0; j < width; j++) {
         var card = field.get(i, j);
-        var cardImage =
-            isCaptain ?
-                CardDrawer.getCardImageForCaptain(card, maxCardHeight, maxCardWidth)
-                : CardDrawer.getCardImageForPlayer(card, maxCardHeight, maxCardWidth);
+        var cardImage = cardDrawer.getImage(card, maxCardHeight, maxCardWidth);
         var x = j * maxCardWidth;
         var y = i * maxCardHeight;
 
@@ -45,21 +42,21 @@ public class FieldDrawer {
     return image;
   }
 
-  private static int getMaxCardHeight(Field field) {
+  private int getMaxCardHeight(Field field) {
     var max = -1;
 
     for (var c : field.getCards()) {
-      max = Math.max(max, CardDrawer.getCardHeight(c));
+      max = Math.max(max, cardDrawer.getImageHeightFor(c));
     }
 
     return max;
   }
 
-  private static int getMaxCardWidth(Field field) {
+  private int getMaxCardWidth(Field field) {
     var max = -1;
 
     for (var c : field.getCards()) {
-      max = Math.max(max, CardDrawer.getCardWidth(c));
+      max = Math.max(max, cardDrawer.getImageWidthFor(c));
     }
 
     return max;

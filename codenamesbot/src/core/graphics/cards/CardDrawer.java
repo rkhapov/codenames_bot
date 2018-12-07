@@ -1,4 +1,4 @@
-package core.graphics;
+package core.graphics.cards;
 
 import core.primitives.Card;
 import java.awt.Color;
@@ -6,55 +6,54 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.image.BufferedImage;
 
-public class CardDrawer {
+public abstract class CardDrawer implements ICardDrawer {
 
-  private final static Font font;
-  private static final FontMetrics metrics;
+  protected final Font font;
+  protected final FontMetrics metrics;
 
-  static {
+  public CardDrawer() {
     font = new Font("Serif", Font.PLAIN, 30);
     metrics = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB).getGraphics().getFontMetrics(font);
   }
 
-  public static int getCardHeight(Card card) {
+  @Override
+  public int getImageHeightFor(Card card) {
     return metrics.getHeight() * 2;
   }
 
-  public static int getCardWidth(Card card) {
+  @Override
+  public int getImageWidthFor(Card card) {
     return metrics.stringWidth(card.getWord()) * 2;
   }
 
-  public static BufferedImage getCardImageForCaptain(Card card, int height, int width) {
-    return getCardImage(card, height, width, true);
+  protected abstract Color getBackgroundColor(Card card);
+
+  protected abstract Color getTextColor(Card card);
+
+  public BufferedImage getImage(Card card, int minHeight, int minWidth) {
+    return buildCardImage(card, minHeight, minWidth, getBackgroundColor(card), getTextColor(card));
   }
 
-  public static BufferedImage getCardImageForPlayer(Card card, int height, int weight){
-    return getCardImage(card, height, weight, false);
-  }
-
-  private static BufferedImage getCardImage(Card card, int height, int width, boolean isCaptain){
-    height = Math.max(height, getCardHeight(card));
-    width = Math.max(width, getCardWidth(card));
+  private BufferedImage buildCardImage(
+      Card card, int height, int width,
+      Color backgroundColor, Color textColor) {
+    height = Math.max(height, getImageHeightFor(card));
+    width = Math.max(width, getImageWidthFor(card));
 
     var image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     var graphics = image.getGraphics();
 
-    graphics.setColor(getBackgroundColorForCard(card, isCaptain));
+    graphics.setColor(backgroundColor);
     graphics.fillRect(0, 0, width, height);
-    graphics.setColor(getTextColorForCard(card, isCaptain));
+    graphics.setColor(textColor);
     graphics.setFont(font);
     graphics.drawString(card.getWord(), metrics.getHeight(), metrics.getHeight());
 
     return image;
   }
 
-
-  private static Color getBackgroundColorForCard(Card card, boolean isCaptain) {
+  protected Color getStandardBackgroundColor(Card card) {
     var color = card.getColor();
-
-    if (!isCaptain && !card.isOpen()) {
-      return Color.GRAY;
-    }
 
     if (color == core.primitives.Color.Black) {
       return Color.DARK_GRAY;
@@ -71,12 +70,8 @@ public class CardDrawer {
     return new Color(0x42aaff);
   }
 
-  private static Color getTextColorForCard(Card card, boolean isCaptain) {
+  protected Color getStandardTextColor(Card card) {
     var color = card.getColor();
-
-    if(!isCaptain && !card.isOpen()){
-      return Color.BLACK;
-    }
 
     if (color == core.primitives.Color.Black) {
       return Color.LIGHT_GRAY;

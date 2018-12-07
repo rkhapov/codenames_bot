@@ -4,16 +4,17 @@ import java.nio.file.Path;
 
 public class ResourceProvider {
 
-  private static final String pathToEntryPointClass =
-      ResourceProvider.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-  private static final String pathToResourcesDir =
-      PathHelper.combine(pathToEntryPointClass, "..", "..", "resources");
+  private final String pathToResourcesDir;
 
-  public static String combinePathToResourcesDir(String path) {
-    return PathHelper.combine(pathToResourcesDir, path);
+  public ResourceProvider(String pathToResourcesDir) {
+    this.pathToResourcesDir = pathToResourcesDir;
   }
 
-  public static String combinePathToResourcesDir(Path path) {
+  public String combinePathToResourcesDir(String path) {
+    return Utils.combine(pathToResourcesDir, path);
+  }
+
+  public String combinePathToResourcesDir(Path path) {
     return combinePathToResourcesDir(path.toString());
   }
 }

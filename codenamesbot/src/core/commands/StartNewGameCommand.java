@@ -12,7 +12,7 @@ public class StartNewGameCommand implements ICommand {
   }
 
   @Override
-  public String getStringCommand() {
+  public String getName() {
     return "/start";
   }
 }

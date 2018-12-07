@@ -1,8 +1,8 @@
 package bot;
 
-import com.google.inject.Guice;
+import com.google.inject.Inject;
 import core.commands.CommandResult;
-import core.commands.CommandSelector;
+import core.commands.factory.ICommandFactory;
 import core.game.IGame;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -20,11 +20,14 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class Bot extends TelegramLongPollingBot {
 
-  private IGame game;
+  private final IGame game;
+  private final ICommandFactory commandFactory;
 
-  public Bot(DefaultBotOptions options, IGame game) {
+  @Inject
+  public Bot(DefaultBotOptions options, IGame game, ICommandFactory commandFactory) {
     super(options);
     this.game = game;
+    this.commandFactory = commandFactory;
   }
 
   @Override
@@ -34,7 +37,7 @@ public class Bot extends TelegramLongPollingBot {
     var id = update.getMessage().getChatId();
     var parts = text.split(" ");
 
-    var cmd = CommandSelector.getCommandByString(parts[0]);
+    var cmd = commandFactory.getCommandByName(parts[0]);
     var result = cmd != null ? cmd.execute(game, Arrays.asList(parts))
         : new CommandResult("Unknown command", null);
 
@@ -54,12 +57,12 @@ public class Bot extends TelegramLongPollingBot {
 
   @Override
   public String getBotUsername() {
-    return Constants.Name;
+    return BotAuthenticationData.NAME;
   }
 
   @Override
   public String getBotToken() {
-    return Constants.Token;
+    return BotAuthenticationData.TOKEN;
   }
 
   private synchronized void sendPhoto(Long chatId, BufferedImage image)

@@ -1,12 +1,13 @@
-package core.tools;
+package tools;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class RandomHelper {
+public class Utils {
 
   private static final Random random = new Random();
 
@@ -41,5 +42,9 @@ public class RandomHelper {
     }
 
     return indexes;
+  }
+
+  public static String combine(String... args) {
+    return String.join(File.separator, args);
   }
 }

@@ -1,7 +1,6 @@
 package core.commands;
 
 import core.game.IGame;
-import core.graphics.FieldDrawer;
 import java.util.List;
 
 public class OpenCardCommand implements ICommand {
@@ -13,7 +12,7 @@ public class OpenCardCommand implements ICommand {
   }
 
   @Override
-  public String getStringCommand() {
+  public String getName() {
     return "/open";
   }
 }

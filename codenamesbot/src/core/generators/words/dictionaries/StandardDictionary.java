@@ -1,5 +1,6 @@
 package core.generators.words.dictionaries;
 
+import com.google.inject.Inject;
 import core.Paths;
 import core.generators.GeneratorException;
 import java.io.File;
@@ -11,12 +12,14 @@ import tools.ResourceProvider;
 
 public class StandardDictionary implements IDictionary {
 
+  private final ResourceProvider resourceProvider;
   private List<String> words;
 
-  public StandardDictionary() {
+  @Inject
+  public StandardDictionary(ResourceProvider resourceProvider) {
+    this.resourceProvider = resourceProvider;
     words = null;
   }
-
 
   @Override
   public List<String> getWords() throws GeneratorException {
@@ -34,7 +37,7 @@ public class StandardDictionary implements IDictionary {
 
   private void fill() throws GeneratorException {
     var wordsFile = new File(
-        ResourceProvider.combinePathToResourcesDir(Paths.StandardDictionaryPath));
+        resourceProvider.combinePathToResourcesDir(Paths.StandardDictionaryPath));
 
     try(var scanner = new Scanner(wordsFile)) {
       words = new ArrayList<>();
