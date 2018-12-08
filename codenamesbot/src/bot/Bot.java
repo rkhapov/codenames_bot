@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import core.commands.CommandResult;
 import core.commands.factory.ICommandFactory;
 import core.game.IGame;
+import core.game.server.IGameServer;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,13 +21,13 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class Bot extends TelegramLongPollingBot {
 
-  private final IGame game;
+  private final IGameServer gameServer;
   private final ICommandFactory commandFactory;
 
   @Inject
-  public Bot(DefaultBotOptions options, IGame game, ICommandFactory commandFactory) {
+  public Bot(DefaultBotOptions options, IGameServer gameServer, ICommandFactory commandFactory) {
     super(options);
-    this.game = game;
+    this.gameServer = gameServer;
     this.commandFactory = commandFactory;
   }
 
@@ -38,8 +39,8 @@ public class Bot extends TelegramLongPollingBot {
     var parts = text.split(" ");
 
     var cmd = commandFactory.getCommandByName(parts[0]);
-    var result = cmd != null ? cmd.execute(game, Arrays.asList(parts))
-        : new CommandResult("Unknown command", null);
+    var result = cmd != null ? cmd.execute(message.getChat().getUserName(), Arrays.asList(parts))
+        : new CommandResult("Unknown command from " + message.getChat().getUserName(), null);
 
     try {
       if (result.getMessage() != null) {

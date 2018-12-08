@@ -12,6 +12,8 @@ import core.commands.factory.CommandFactory;
 import core.commands.factory.ICommandFactory;
 import core.game.Game;
 import core.game.IGame;
+import core.game.server.GameServer;
+import core.game.server.IGameServer;
 import core.generators.cards.CardsGenerator;
 import core.generators.cards.ICardsGenerator;
 import core.generators.field.FieldGenerator;
@@ -30,26 +32,26 @@ import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.DefaultBotOptions.ProxyType;
 import org.telegram.telegrambots.meta.ApiContext;
-import tools.Utils;
 import tools.ResourceProvider;
+import tools.Utils;
 
 public class BasicModule extends AbstractModule {
 
   @Override
   public void configure() {
-    bind(IWordsGenerator.class).to(WordsGenerator.class);
-    bind(ICardsGenerator.class).to(CardsGenerator.class);
-    bind(IFieldGenerator.class).to(FieldGenerator.class);
     bind(IGame.class).to(Game.class);
-    bind(ICommandFactory.class).to(CommandFactory.class);
 
+    bind(IWordsGenerator.class).to(WordsGenerator.class).asEagerSingleton();
+    bind(ICardsGenerator.class).to(CardsGenerator.class).asEagerSingleton();
+    bind(IFieldGenerator.class).to(FieldGenerator.class).asEagerSingleton();
+    bind(ICommandFactory.class).to(CommandFactory.class).asEagerSingleton();
+    bind(IGameServer.class).to(GameServer.class).asEagerSingleton();
     bind(CaptainCardDrawer.class).asEagerSingleton();
     bind(PlayerCardDrawer.class).asEagerSingleton();
     bind(CaptainFieldDrawer.class).asEagerSingleton();
     bind(PlayerFieldDrawer.class).asEagerSingleton();
 
     bind(DefaultBotOptions.class).toInstance(getDefaultBotOptions());
-
     bind(ResourceProvider.class).toInstance(getResourceProvider());
 
     doMultiBindForCommands();

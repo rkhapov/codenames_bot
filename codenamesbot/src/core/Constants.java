@@ -2,11 +2,8 @@ package core;
 
 public class Constants {
 
-  public static final int FieldHeight = 6;
-  public static final int FieldWidth = 5;
-  public static final int RedWordsCount = 10;
-  public static final int BlueWordsCount = 9;
-
-  public static final int FieldImageHeight = 500;
-  public static final int FieldImageWidth = 500;
+  public static final int FIELD_HEIGHT = 6;
+  public static final int FIELD_WIDTH = 5;
+  public static final int RED_WORDS_COUNT = 10;
+  public static final int BLUE_WORDS_COUNT = 9;
 }

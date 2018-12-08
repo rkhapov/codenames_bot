@@ -1,14 +1,22 @@
 package core.commands;
 
-import core.game.IGame;
+import com.google.inject.Inject;
+import core.game.server.IGameServer;
+import core.primitives.User;
 import java.util.List;
 
 public class OpenCardCommand implements ICommand {
 
+  private final IGameServer gameServer;
+
+  @Inject
+  public OpenCardCommand(IGameServer gameServer) {
+    this.gameServer = gameServer;
+  }
+
   @Override
-  public CommandResult execute(IGame game, List<String> args) {
-    game.openCard(args.get(1));
-    return new CommandResult("card opened", null);
+  public CommandResult execute(String caller, List<String> args) {
+    return null;
   }
 
   @Override

@@ -20,8 +20,8 @@ public class FieldGenerator implements IFieldGenerator {
 
   public Field generate() throws GeneratorException {
     return new Field(generate(
-        cardsGenerator, Constants.FieldHeight, Constants.FieldWidth,
-        Constants.BlueWordsCount, Constants.RedWordsCount));
+        cardsGenerator, Constants.FIELD_HEIGHT, Constants.FIELD_WIDTH,
+        Constants.BLUE_WORDS_COUNT, Constants.RED_WORDS_COUNT));
   }
 
   private List<List<Card>> generate(

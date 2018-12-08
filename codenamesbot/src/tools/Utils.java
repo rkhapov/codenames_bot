@@ -44,6 +44,18 @@ public class Utils {
     return indexes;
   }
 
+  public static <T> T getRandomElement(List<T> elements) {
+    if (elements.size() == 0) {
+      throw new IllegalArgumentException("No any elements in list");
+    }
+
+    return elements.get(random.nextInt(elements.size()));
+  }
+
+  public static int getRandomInt(int min, int max) {
+    return random.nextInt(max - min + 1) + min;
+  }
+
   public static String combine(String... args) {
     return String.join(File.separator, args);
   }

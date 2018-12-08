@@ -1,25 +1,27 @@
 package core.commands;
 
 import com.google.inject.Inject;
-import core.game.IGame;
+import core.game.server.IGameServer;
 import core.graphics.field.CaptainFieldDrawer;
-import core.graphics.field.FieldDrawer;
 import core.graphics.field.IFieldDrawer;
-import core.graphics.field.PlayerFieldDrawer;
+import core.primitives.User;
 import java.util.List;
 
 public class GetCaptainPictureCommand implements ICommand {
 
   private final IFieldDrawer fieldDrawer;
+  private final IGameServer gameServer;
 
   @Inject
-  public GetCaptainPictureCommand(CaptainFieldDrawer fieldDrawer) {
+  public GetCaptainPictureCommand(CaptainFieldDrawer fieldDrawer,
+      IGameServer gameServer) {
     this.fieldDrawer = fieldDrawer;
+    this.gameServer = gameServer;
   }
 
   @Override
-  public CommandResult execute(IGame game, List<String> args) {
-    return new CommandResult(null, List.of(fieldDrawer.getImage(game.getField())));
+  public CommandResult execute(String caller, List<String> args) {
+    return null;
   }
 
   @Override

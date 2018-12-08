@@ -1,14 +1,21 @@
 package core.commands;
 
-import core.game.IGame;
+import com.google.inject.Inject;
+import core.game.server.IGameServer;
 import java.util.List;
 
 public class StartNewGameCommand implements ICommand {
 
+  private final IGameServer gameServer;
+
+  @Inject
+  public StartNewGameCommand(IGameServer gameServer) {
+    this.gameServer = gameServer;
+  }
+
   @Override
-  public CommandResult execute(IGame game, List<String> args) {
-    game.restart();
-    return new CommandResult("New game started!", null);
+  public CommandResult execute(String callerUserName, List<String> args) {
+    return null;
   }
 
   @Override
