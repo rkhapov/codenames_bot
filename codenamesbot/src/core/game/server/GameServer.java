@@ -27,7 +27,7 @@ public class GameServer implements IGameServer {
 
   @Override
   public Session startNew(User redCaptain, User blueCaptain) {
-    var session = createNewSession(redCaptain, blueCaptain);
+    var session = createNewSession();
 
     idToSession.put(session.getId(), session);
 
@@ -44,8 +44,8 @@ public class GameServer implements IGameServer {
     return null;
   }
 
-  private Session createNewSession(User redCaptain, User blueCaptain) {
-    return new Session(createNewGame(), redCaptain, blueCaptain, getNextSessionId());
+  private Session createNewSession() {
+    return new Session(createNewGame(), getNextSessionId());
   }
 
   private IGame createNewGame() {

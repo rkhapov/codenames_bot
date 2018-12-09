@@ -43,12 +43,10 @@ public class Field {
     return new ArrayList<>(wordToCard.values());
   }
 
-  public Card open(String word) {
+  public void open(String word) {
     var card = getCard(word);
 
     card.open();
-
-    return card;
   }
 
   public Card get(int i, int j) {

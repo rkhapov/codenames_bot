@@ -30,7 +30,7 @@ public class Game implements IGame {
 
   @Override
   public void openCard(String word) {
-    field.getCard(word).open();
+    field.open(word);
 //    var cards = field.getCards();
 //    var blue = 0;
 //    var red = 0;

@@ -5,28 +5,16 @@ import core.primitives.User;
 
 public class Session {
 
-  private final User redCaptain;
-  private final User blueCaptain;
   private final IGame game;
   private final String id;
 
-  public Session(IGame game, User redCaptain, User blueCaptain, String id) {
+  public Session(IGame game, String id) {
     if (id == null) {
       throw new IllegalArgumentException("id of session cant be null");
     }
 
     this.game = game;
-    this.redCaptain = redCaptain;
-    this.blueCaptain = blueCaptain;
     this.id = id;
-  }
-
-  public User getRedCaptain() {
-    return redCaptain;
-  }
-
-  public User getBlueCaptain() {
-    return blueCaptain;
   }
 
   public String getId() {
