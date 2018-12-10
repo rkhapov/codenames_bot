@@ -1,20 +1,20 @@
 package core.primitives;
 
 public enum Color {
-  Red,
-  Blue,
-  White,
-  Black;
+  RED,
+  BLUE,
+  WHITE,
+  BLACK;
 
   public Color getOpposite() {
-    if (this == White || this == Black)
+    if (this == WHITE || this == BLACK)
       throw new IllegalStateException();
-    return this == Blue ? Red : Blue;
+    return this == BLUE ? RED : BLUE;
   }
 
   public GameState getState() {
-    if (this == White || this == Black)
+    if (this == WHITE || this == BLACK)
       throw new IllegalStateException();
-    return this == Blue ? GameState.BlueTeamWin : GameState.RedTeamWin;
+    return this == BLUE ? GameState.BLUE_TEAM_WIN : GameState.RED_TEAM_WIN;
   }
 }

@@ -11,7 +11,7 @@ public interface IGame {
 
   Field getField();
 
-  Color nextTurnColor();
+  Color getNextTurnColor();
 
   GameState getState();
 }

@@ -74,7 +74,7 @@ public class GameServer implements IGameServer {
   }
 
   private String generateId() {
-    var len = Utils.getRandomInt(5, 8);
+    var len = Utils.getRandomInt(3, 5);
     var id = new StringBuilder();
 
     for (var i = 0; i < len; i++) {

@@ -1,18 +1,18 @@
 package core.commands;
 
 import com.google.inject.Inject;
+import core.game.IGame;
 import core.game.server.IGameServer;
 import core.graphics.IDrawerSelector;
-import java.awt.image.BufferedImage;
 import java.util.List;
 
-public class GetPictureCommand implements ICommand {
+public class GetStateCommand implements ICommand {
 
   private final IGameServer gameServer;
   private final IDrawerSelector drawerSelector;
 
   @Inject
-  public GetPictureCommand(IGameServer gameServer, IDrawerSelector drawerSelector) {
+  public GetStateCommand(IGameServer gameServer, IDrawerSelector drawerSelector) {
     this.gameServer = gameServer;
     this.drawerSelector = drawerSelector;
   }
@@ -21,19 +21,24 @@ public class GetPictureCommand implements ICommand {
   public ExecuteResult execute(String callerUserName, Arguments arguments) {
     var user = gameServer.getUserByName(callerUserName);
     var rank = user.getRank();
-    var field = user.getCurrentSession().getGame().getField();
+    var game = user.getCurrentSession().getGame();
+    var field = game.getField();
     var drawer = drawerSelector.getDrawerForRank(rank);
+    var message = String.format("State: %s, next turn: %s",
+        game.getState(),
+        game.getNextTurnColor());
+    var image = drawer.getImage(field);
 
-    return new ExecuteResult(null, List.of(drawer.getImage(field)));
+    return new ExecuteResult(message, List.of(image));
   }
 
   @Override
   public String getName() {
-    return "/getpic";
+    return "/state";
   }
 
   @Override
   public String getFormat() {
-    return "/getpic";
+    return "/state";
   }
 }

@@ -48,6 +48,6 @@ public class Field {
   }
 
   public Card get(int row, int column) {
-    return cards.get(row * height + column);
+    return cards.get(row * width + column);
   }
 }

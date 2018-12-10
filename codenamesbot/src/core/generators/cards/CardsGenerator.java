@@ -37,14 +37,14 @@ public class CardsGenerator implements ICardsGenerator {
     var size = words.size();
 
     for (var i = 0; i < size; i++) {
-      var color = Color.Blue;
+      var color = Color.BLUE;
 
       if (i >= blue && i < blue + red)
-        color = Color.Red;
+        color = Color.RED;
       else if (i == blue + red)
-        color = Color.Black;
+        color = Color.BLACK;
       else if (i > blue + red)
-        color = Color.White;
+        color = Color.WHITE;
 
       cards.add(Card.create(words.get(i), color));
     }
