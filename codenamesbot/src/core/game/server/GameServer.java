@@ -18,12 +18,14 @@ public class GameServer implements IGameServer {
       "abcdefghijklmnopqrstuvwxyz".chars().mapToObj(c -> (char) c).collect(Collectors.toList());
 
   private final Provider<IGame> gameProvider;
+  private final Map<String, User> nameToUser;
   private final Map<String, Session> idToSession;
 
   @Inject
   public GameServer(Provider<IGame> gameProvider) {
     this.gameProvider = gameProvider;
     idToSession = new HashMap<>();
+    nameToUser = new HashMap<>();
   }
 
   @Override
@@ -43,6 +45,14 @@ public class GameServer implements IGameServer {
   @Override
   public Set<Session> getSessions() {
     return new HashSet<>(idToSession.values());
+  }
+
+  @Override
+  public User getUserByName(String name) {
+    if (!nameToUser.containsKey(name)) {
+      nameToUser.put(name, new User(name, null, null));
+    }
+    return nameToUser.get(name);
   }
 
   private Session createNewSession() {

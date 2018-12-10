@@ -3,9 +3,10 @@ package core.commands;
 import com.google.inject.Inject;
 import core.game.server.IGameServer;
 import core.graphics.IDrawerSelector;
+import core.primitives.Rank;
+import java.util.List;
 
 public class GetPictureCommand implements ICommand {
-
 
   private final IGameServer gameServer;
   private final IDrawerSelector drawerSelector;
@@ -18,9 +19,11 @@ public class GetPictureCommand implements ICommand {
 
   @Override
   public ExecuteResult execute(String callerUserName, Arguments arguments) {
-    var rank = server.getUserByName(callerUserName).getRank();
-    if (rank == Rank.CAPTAIN)
-
+    var user = gameServer.getUserByName(callerUserName);
+    var rank = user.getRank();
+    var field = user.getCurrentSession().getGame().getField();
+    var drawer = drawerSelector.getDrawerForRank(rank);
+    return new ExecuteResult(null, List.of(drawer.getImage(field)));
   }
 
   @Override

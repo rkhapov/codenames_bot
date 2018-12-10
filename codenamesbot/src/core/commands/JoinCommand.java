@@ -17,9 +17,7 @@ public class JoinCommand implements ICommand {
     var id = arguments.getArgument("id");
     var mode = arguments.getArgument("mode");
     var targetSession = gameServer.getSessionById(id);
-
-
-
+    return null;
   }
 
   @Override

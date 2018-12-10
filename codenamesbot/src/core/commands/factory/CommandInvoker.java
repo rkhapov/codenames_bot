@@ -31,7 +31,12 @@ public class CommandInvoker implements ICommandInvoker {
   public ExecuteResult execute(String commandLine, String callerUserName) {
     var tokens = tokenizer.getTokens(commandLine);
     var command = getCommand(tokens);
+    if (command == null)
+      return new ExecuteResult("Unknown command", null);
     var arguments = buildArguments(tokens, command);
+    if (arguments == null)
+      return new ExecuteResult("Wrong arguments. Arguments template: " + command.getFormat(),
+          null);
 
     var result = command.execute(callerUserName, arguments);
 
