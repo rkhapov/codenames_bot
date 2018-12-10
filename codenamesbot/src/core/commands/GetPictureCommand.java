@@ -1,16 +1,19 @@
 package core.commands;
 
+import com.google.inject.Inject;
 import core.game.server.IGameServer;
-import core.graphics.field.IFieldDrawer;
-import core.primitives.Rank;
+import core.graphics.IDrawerSelector;
 
 public class GetPictureCommand implements ICommand {
-  private final IGameServer server;
-  priva
 
-  public GetPictureCommand(IGameServer server,
-      IFieldDrawer fieldDrawer) {
-    this.server = server;
+
+  private final IGameServer gameServer;
+  private final IDrawerSelector drawerSelector;
+
+  @Inject
+  public GetPictureCommand(IGameServer gameServer, IDrawerSelector drawerSelector) {
+    this.gameServer = gameServer;
+    this.drawerSelector = drawerSelector;
   }
 
   @Override
