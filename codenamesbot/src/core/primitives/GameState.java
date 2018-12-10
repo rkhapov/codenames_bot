@@ -1,7 +1,7 @@
 package core.primitives;
 
 public enum GameState {
-  RedTeamWin,
-  BlueTeamWin,
-  InProgress
+  RED_TEAM_WIN,
+  BLUE_TEAM_WIN,
+  IN_PROGRESS
 }

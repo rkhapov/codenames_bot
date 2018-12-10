@@ -23,6 +23,9 @@ public class Game implements IGame {
     } catch (GeneratorException e) {
       //skip
     }
+
+    whoseTurn = Color.RED;
+    state = GameState.IN_PROGRESS;
   }
 
   @Override
@@ -30,7 +33,7 @@ public class Game implements IGame {
     var openedCard = field.open(word);
     var cards = field.getCards();
     var color = openedCard.getColor();
-    if (color == Color.Black) {
+    if (color == Color.BLACK) {
       state = whoseTurn.getOpposite().getState();
       return;
     }
@@ -61,20 +64,20 @@ public class Game implements IGame {
     var blue = 0;
     var red = 0;
     for (var card : cards) {
-      if (card.getColor() == Color.Red) {
+      if (card.getColor() == Color.RED) {
         red++;
       }
-      if (card.getColor() == Color.Blue) {
+      if (card.getColor() == Color.BLUE) {
         blue++;
       }
     }
 
     if (blue == 0) {
-      return GameState.BlueTeamWin;
+      return GameState.BLUE_TEAM_WIN;
     }
     if (red == 0) {
-      return GameState.RedTeamWin;
+      return GameState.RED_TEAM_WIN;
     }
-    return GameState.InProgress;
+    return GameState.IN_PROGRESS;
   }
 }

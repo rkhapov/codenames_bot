@@ -55,15 +55,15 @@ public abstract class CardDrawer implements ICardDrawer {
   protected Color getStandardBackgroundColor(Card card) {
     var color = card.getColor();
 
-    if (color == core.primitives.Color.Black) {
+    if (color == core.primitives.Color.BLACK) {
       return Color.DARK_GRAY;
     }
 
-    if (color == core.primitives.Color.White) {
+    if (color == core.primitives.Color.WHITE) {
       return Color.LIGHT_GRAY;
     }
 
-    if (color == core.primitives.Color.Red) {
+    if (color == core.primitives.Color.RED) {
       return Color.RED;
     }
 
@@ -73,15 +73,15 @@ public abstract class CardDrawer implements ICardDrawer {
   protected Color getStandardTextColor(Card card) {
     var color = card.getColor();
 
-    if (color == core.primitives.Color.Black) {
+    if (color == core.primitives.Color.BLACK) {
       return Color.LIGHT_GRAY;
     }
 
-    if (color == core.primitives.Color.White) {
+    if (color == core.primitives.Color.WHITE) {
       return Color.BLACK;
     }
 
-    if (color == core.primitives.Color.Red) {
+    if (color == core.primitives.Color.RED) {
       return Color.BLACK;
     }
 
