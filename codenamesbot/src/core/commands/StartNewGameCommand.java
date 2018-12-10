@@ -14,12 +14,17 @@ public class StartNewGameCommand implements ICommand {
   }
 
   @Override
-  public CommandResult execute(String callerUserName, List<String> args) {
+  public ExecuteResult execute(String callerUserName, Arguments arguments) {
     return null;
   }
 
   @Override
   public String getName() {
     return "/start";
+  }
+
+  @Override
+  public String getFormat() {
+    return null;
   }
 }

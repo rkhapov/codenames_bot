@@ -1,16 +1,14 @@
 package bot;
 
 import com.google.inject.Inject;
-import core.commands.CommandResult;
-import core.commands.factory.ICommandFactory;
-import core.game.IGame;
+import core.commands.ExecuteResult;
+import core.commands.factory.ICommandInvoker;
 import core.game.server.IGameServer;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import javax.imageio.ImageIO;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -21,14 +19,12 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class Bot extends TelegramLongPollingBot {
 
-  private final IGameServer gameServer;
-  private final ICommandFactory commandFactory;
+  private final ICommandInvoker commandInvoker;
 
   @Inject
-  public Bot(DefaultBotOptions options, IGameServer gameServer, ICommandFactory commandFactory) {
+  public Bot(DefaultBotOptions options, ICommandInvoker commandFactory) {
     super(options);
-    this.gameServer = gameServer;
-    this.commandFactory = commandFactory;
+    this.commandInvoker = commandFactory;
   }
 
   @Override
@@ -36,12 +32,13 @@ public class Bot extends TelegramLongPollingBot {
     var message = update.getMessage();
     var text = message.getText();
     var id = update.getMessage().getChatId();
-    var parts = text.split(" ");
 
-    var cmd = commandFactory.getCommandByName(parts[0]);
-    var result = cmd != null ? cmd.execute(message.getChat().getUserName(), Arrays.asList(parts))
-        : new CommandResult("Unknown command from " + message.getChat().getUserName(), null);
+    var result = commandInvoker.execute(text, update.getMessage().getChat().getUserName());
 
+    sendResult(id, result);
+  }
+
+  private void sendResult(Long id, ExecuteResult result) {
     try {
       if (result.getMessage() != null) {
         sendMessage(result.getMessage(), id);

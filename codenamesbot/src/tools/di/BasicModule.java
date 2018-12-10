@@ -3,13 +3,11 @@ package tools.di;
 import bot.BotAuthenticationData;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
-import core.commands.GetCaptainPictureCommand;
-import core.commands.GetPlayerPictureCommand;
 import core.commands.ICommand;
 import core.commands.OpenCardCommand;
 import core.commands.StartNewGameCommand;
-import core.commands.factory.CommandFactory;
-import core.commands.factory.ICommandFactory;
+import core.commands.factory.CommandInvoker;
+import core.commands.factory.ICommandInvoker;
 import core.game.Game;
 import core.game.IGame;
 import core.game.server.GameServer;
@@ -32,7 +30,9 @@ import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.DefaultBotOptions.ProxyType;
 import org.telegram.telegrambots.meta.ApiContext;
+import tools.ITokenizer;
 import tools.ResourceProvider;
+import tools.Tokenizer;
 import tools.Utils;
 
 public class BasicModule extends AbstractModule {
@@ -44,7 +44,8 @@ public class BasicModule extends AbstractModule {
     bind(IWordsGenerator.class).to(WordsGenerator.class).asEagerSingleton();
     bind(ICardsGenerator.class).to(CardsGenerator.class).asEagerSingleton();
     bind(IFieldGenerator.class).to(FieldGenerator.class).asEagerSingleton();
-    bind(ICommandFactory.class).to(CommandFactory.class).asEagerSingleton();
+    bind(ICommandInvoker.class).to(CommandInvoker.class).asEagerSingleton();
+    bind(ITokenizer.class).to(Tokenizer.class).asEagerSingleton();
     bind(IGameServer.class).to(GameServer.class).asEagerSingleton();
     bind(CaptainCardDrawer.class).asEagerSingleton();
     bind(PlayerCardDrawer.class).asEagerSingleton();
@@ -71,8 +72,6 @@ public class BasicModule extends AbstractModule {
 
     binder.addBinding().to(OpenCardCommand.class);
     binder.addBinding().to(StartNewGameCommand.class);
-    binder.addBinding().to(GetCaptainPictureCommand.class);
-    binder.addBinding().to(GetPlayerPictureCommand.class);
   }
 
   private void doMultiBindForDictionaries() {

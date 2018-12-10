@@ -1,10 +1,10 @@
 package core.commands;
 
-import core.game.IGame;
-import core.primitives.User;
-import java.util.List;
-
 public interface ICommand {
-  CommandResult execute(String callerUserName, List<String> args);
+
+  ExecuteResult execute(String callerUserName, Arguments arguments);
+
   String getName();
+
+  String getFormat();
 }

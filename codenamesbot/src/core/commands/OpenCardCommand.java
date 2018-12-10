@@ -2,7 +2,6 @@ package core.commands;
 
 import com.google.inject.Inject;
 import core.game.server.IGameServer;
-import core.primitives.User;
 import java.util.List;
 
 public class OpenCardCommand implements ICommand {
@@ -15,12 +14,17 @@ public class OpenCardCommand implements ICommand {
   }
 
   @Override
-  public CommandResult execute(String caller, List<String> args) {
+  public ExecuteResult execute(String callerUserName, Arguments arguments) {
     return null;
   }
 
   @Override
   public String getName() {
     return "/open";
+  }
+
+  @Override
+  public String getFormat() {
+    return "/open $word";
   }
 }
