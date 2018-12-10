@@ -29,13 +29,13 @@ public class Game implements IGame {
   }
 
   @Override
-  public void openCard(String word) {
+  public Card openCard(String word) {
     var openedCard = field.open(word);
     var cards = field.getCards();
     var color = openedCard.getColor();
     if (color == Color.BLACK) {
       state = whoseTurn.getOpposite().getState();
-      return;
+      return openedCard;
     }
 
     if (color != whoseTurn) {
@@ -43,6 +43,11 @@ public class Game implements IGame {
     }
 
     state = computeState(cards);
+    return openedCard;
+  }
+
+  public boolean hasCard(String word) {
+    return field.hasCard(word);
   }
 
   @Override
