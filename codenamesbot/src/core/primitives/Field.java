@@ -39,10 +39,12 @@ public class Field {
     return cards;
   }
 
-  public void open(String word) {
+  public Card open(String word) {
     var card = getCard(word);
 
     card.open();
+
+    return card;
   }
 
   public Card get(int row, int column) {

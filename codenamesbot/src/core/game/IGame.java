@@ -7,11 +7,11 @@ import java.util.Collection;
 
 public interface IGame {
 
-  void restart();
-
   void openCard(String word);
 
   Field getField();
+
+  Color nextTurnColor();
 
   GameState getState();
 }
