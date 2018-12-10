@@ -7,13 +7,13 @@ import core.graphics.field.PlayerFieldDrawer;
 import core.primitives.User;
 import java.util.List;
 
-public class GetPlayerPictureCommand implements ICommand {
+public class GetPictureCommand implements ICommand {
 
   private final IFieldDrawer fieldDrawer;
   private final IGameServer gameServer;
 
   @Inject
-  public GetPlayerPictureCommand(PlayerFieldDrawer fieldDrawer,
+  public GetPictureCommand(PlayerFieldDrawer fieldDrawer,
       IGameServer gameServer) {
     this.fieldDrawer = fieldDrawer;
     this.gameServer = gameServer;
