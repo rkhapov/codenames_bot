@@ -1,4 +1,4 @@
-package core.commands.factory;
+package core.commands.invoker;
 
 import com.google.inject.Inject;
 import core.commands.Arguments;

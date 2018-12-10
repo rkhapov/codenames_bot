@@ -15,16 +15,19 @@ public class JoinCommand implements ICommand {
 
   @Override
   public ExecuteResult execute(String callerUserName, Arguments arguments) {
-    var id = arguments.getArgument("id");
-    var rank = Rank.valueOf(arguments.getArgument("rank").toUpperCase());
-    var targetSession = gameServer.getSessionById(id);
-    if (targetSession == null) {
-      return new ExecuteResult("There is no such session", null);
+    try {
+      var id = arguments.getArgument("id");
+      var targetSession = gameServer.getSessionById(id);
+      if (targetSession == null) {
+        return new ExecuteResult("There is no such session", null);
+      }
+      var user = gameServer.getUserByName(callerUserName);
+      var rank = Rank.valueOf(arguments.getArgument("rank").toUpperCase());
+      user.setRank(rank);
+      user.setCurrentSession(targetSession);
+    } catch (IllegalArgumentException e) {
+      return new ExecuteResult("Ranks: captain | player", null);
     }
-    var user = gameServer.getUserByName(callerUserName);
-    user.setCurrentSession(targetSession);
-    user.setRank(rank);
-
     return new ExecuteResult("You have successfully joined", null);
   }
 

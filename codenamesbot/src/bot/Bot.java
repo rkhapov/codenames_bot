@@ -2,8 +2,7 @@ package bot;
 
 import com.google.inject.Inject;
 import core.commands.ExecuteResult;
-import core.commands.factory.ICommandInvoker;
-import core.game.server.IGameServer;
+import core.commands.invoker.ICommandInvoker;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
