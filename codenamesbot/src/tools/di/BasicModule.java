@@ -21,6 +21,8 @@ import core.generators.words.IWordsGenerator;
 import core.generators.words.WordsGenerator;
 import core.generators.words.dictionaries.IDictionary;
 import core.generators.words.dictionaries.StandardDictionary;
+import core.graphics.DrawerSelector;
+import core.graphics.IDrawerSelector;
 import core.graphics.cards.CaptainCardDrawer;
 import core.graphics.cards.PlayerCardDrawer;
 import core.graphics.field.CaptainFieldDrawer;
@@ -47,8 +49,10 @@ public class BasicModule extends AbstractModule {
     bind(ICardsGenerator.class).to(CardsGenerator.class).asEagerSingleton();
     bind(IFieldGenerator.class).to(FieldGenerator.class).asEagerSingleton();
     bind(ICommandInvoker.class).to(CommandInvoker.class).asEagerSingleton();
+    bind(IDrawerSelector.class).to(DrawerSelector.class).asEagerSingleton();
     bind(ITokenizer.class).to(Tokenizer.class).asEagerSingleton();
     bind(IGameServer.class).to(GameServer.class).asEagerSingleton();
+
     bind(CaptainCardDrawer.class).asEagerSingleton();
     bind(PlayerCardDrawer.class).asEagerSingleton();
     bind(CaptainFieldDrawer.class).asEagerSingleton();
