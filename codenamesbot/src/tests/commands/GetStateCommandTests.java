@@ -5,7 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.*;
 import core.commands.Arguments;
-import core.commands.GetPictureCommand;
+import core.commands.GetStateCommand;
 import core.game.IGame;
 import core.game.server.IGameServer;
 import core.game.server.Session;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class GetPictureCommandTests {
+public class GetStateCommandTests {
   private IGameServer gameServer;
   private IDrawerSelector selector;
   private IGame game;
@@ -28,9 +28,9 @@ public class GetPictureCommandTests {
   private User userCaptain;
   private User userPlayer;
   private IFieldDrawer fieldDrawer;
-  private GetPictureCommand command;
+  private GetStateCommand command;
 
-  public GetPictureCommandTests() {
+  public GetStateCommandTests() {
   }
 
 
@@ -49,7 +49,7 @@ public class GetPictureCommandTests {
     fieldDrawer = mock(IFieldDrawer.class);
     when(selector.getDrawerForRank(any())).thenReturn(fieldDrawer);
     when(fieldDrawer.getImage(any())).thenReturn(new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB));
-    command = new GetPictureCommand(gameServer, selector);
+    command = new GetStateCommand(gameServer, selector);
   }
 
   @Test

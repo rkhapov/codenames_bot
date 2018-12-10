@@ -48,7 +48,7 @@ public class Game implements IGame {
   }
 
   @Override
-  public Color nextTurnColor() {
+  public Color getNextTurnColor() {
     return whoseTurn;
   }
 
