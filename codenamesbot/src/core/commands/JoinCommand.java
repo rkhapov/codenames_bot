@@ -18,8 +18,14 @@ public class JoinCommand implements ICommand {
     var id = arguments.getArgument("id");
     var rank = Rank.valueOf(arguments.getArgument("rank").toUpperCase());
     var targetSession = gameServer.getSessionById(id);
+    if (targetSession == null) {
+      return new ExecuteResult("There is no such session", null);
+    }
+    var user = gameServer.getUserByName(callerUserName);
+    user.setCurrentSession(targetSession);
+    user.setRank(rank);
 
-    return null;
+    return new ExecuteResult("You have successfully joined", null);
   }
 
   @Override

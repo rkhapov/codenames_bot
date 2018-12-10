@@ -8,10 +8,14 @@ public class User {
   private Session currentSession;
   private Rank rank;
 
-  public User(String name, Rank rank, Session session) {
-    this.rank = rank;
+  public User(String name, Session session) {
+    this.rank = null;
     this.name = name;
     currentSession = session;
+  }
+
+  public void setRank(Rank rank) {
+    this.rank = rank;
   }
 
   public Rank getRank(){

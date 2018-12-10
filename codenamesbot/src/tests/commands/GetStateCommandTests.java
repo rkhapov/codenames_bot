@@ -41,8 +41,10 @@ public class GetStateCommandTests {
     field = new Field(new ArrayList<>(), 0, 0);
     when(game.getField()).thenReturn(field);
     session = new Session(game, "id");
-    userCaptain = new User("captain", Rank.CAPTAIN, session);
-    userPlayer = new User("player", Rank.PLAYER, session);
+    userCaptain = new User("captain", session);
+    userCaptain.setRank(Rank.CAPTAIN);
+    userPlayer = new User("player", session);
+    userPlayer.setRank(Rank.PLAYER);
     when(gameServer.getUserByName("captain")).thenReturn(userCaptain);
     when(gameServer.getUserByName("player")).thenReturn(userPlayer);
     selector = mock(IDrawerSelector.class);
