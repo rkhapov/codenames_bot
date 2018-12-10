@@ -3,7 +3,7 @@ package core.commands;
 import com.google.inject.Inject;
 import core.game.server.IGameServer;
 import core.graphics.IDrawerSelector;
-import core.primitives.Rank;
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 public class GetPictureCommand implements ICommand {
