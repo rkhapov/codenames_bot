@@ -2,31 +2,33 @@ package core.commands;
 
 import com.google.inject.Inject;
 import core.game.server.IGameServer;
-import core.graphics.IDrawerSelector;
 
-public class GetPictureCommand implements ICommand {
+public class JoinCommand implements ICommand {
 
   private final IGameServer gameServer;
-  private final IDrawerSelector drawerSelector;
 
   @Inject
-  public GetPictureCommand(IGameServer gameServer, IDrawerSelector drawerSelector) {
+  public JoinCommand(IGameServer gameServer) {
     this.gameServer = gameServer;
-    this.drawerSelector = drawerSelector;
   }
 
   @Override
   public ExecuteResult execute(String callerUserName, Arguments arguments) {
-    return null;
+    var id = arguments.getArgument("id");
+    var mode = arguments.getArgument("mode");
+    var targetSession = gameServer.getSessionById(id);
+
+
+
   }
 
   @Override
   public String getName() {
-    return "/getpicture";
+    return "/join";
   }
 
   @Override
   public String getFormat() {
-    return "/getpicture";
+    return "/join $id $mode";
   }
 }

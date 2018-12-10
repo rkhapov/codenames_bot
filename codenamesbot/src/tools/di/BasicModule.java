@@ -24,6 +24,7 @@ import core.generators.words.dictionaries.StandardDictionary;
 import core.graphics.cards.CaptainCardDrawer;
 import core.graphics.cards.PlayerCardDrawer;
 import core.graphics.field.CaptainFieldDrawer;
+import core.graphics.field.IFieldDrawer;
 import core.graphics.field.PlayerFieldDrawer;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
@@ -58,6 +59,7 @@ public class BasicModule extends AbstractModule {
 
     doMultiBindForCommands();
     doMultiBindForDictionaries();
+    doMultiBindForDrawers();
   }
 
   private ResourceProvider getResourceProvider() {
@@ -80,6 +82,13 @@ public class BasicModule extends AbstractModule {
     var binder = Multibinder.newSetBinder(binder(), IDictionary.class);
 
     binder.addBinding().to(StandardDictionary.class);
+  }
+
+  private void doMultiBindForDrawers() {
+    var binder = Multibinder.newSetBinder(binder(), IFieldDrawer.class);
+
+    binder.addBinding().to(CaptainFieldDrawer.class);
+    binder.addBinding().to(PlayerFieldDrawer.class);
   }
 
   private DefaultBotOptions getDefaultBotOptions() {

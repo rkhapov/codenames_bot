@@ -11,4 +11,9 @@ public class PlayerFieldDrawer extends FieldDrawer {
   public PlayerFieldDrawer(PlayerCardDrawer cardDrawer) {
     super(cardDrawer);
   }
+
+  @Override
+  public Rank getTargetRank() {
+    return Rank.PLAYER;
+  }
 }
