@@ -38,9 +38,14 @@ public class CommandInvoker implements ICommandInvoker {
       return new ExecuteResult("Wrong arguments. Arguments template: " + command.getFormat(),
           null);
 
-    var result = command.execute(callerUserName, arguments);
+    try {
+      var result = command.execute(callerUserName, arguments);
 
-    return result;
+      return result;
+    }
+    catch (Exception e) {
+      return new ExecuteResult("Exception: " + e.getMessage(), null);
+    }
   }
 
   private Arguments buildArguments(List<String> tokens, ICommand command) {

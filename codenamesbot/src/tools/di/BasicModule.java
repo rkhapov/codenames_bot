@@ -5,6 +5,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 import core.commands.GetPictureCommand;
 import core.commands.ICommand;
+import core.commands.JoinCommand;
 import core.commands.OpenCardCommand;
 import core.commands.StartNewGameCommand;
 import core.commands.factory.CommandInvoker;
@@ -80,6 +81,7 @@ public class BasicModule extends AbstractModule {
     binder.addBinding().to(OpenCardCommand.class);
     binder.addBinding().to(StartNewGameCommand.class);
     binder.addBinding().to(GetPictureCommand.class);
+    binder.addBinding().to(JoinCommand.class);
   }
 
   private void doMultiBindForDictionaries() {

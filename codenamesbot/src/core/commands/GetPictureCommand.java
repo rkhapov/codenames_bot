@@ -23,6 +23,7 @@ public class GetPictureCommand implements ICommand {
     var rank = user.getRank();
     var field = user.getCurrentSession().getGame().getField();
     var drawer = drawerSelector.getDrawerForRank(rank);
+
     return new ExecuteResult(null, List.of(drawer.getImage(field)));
   }
 

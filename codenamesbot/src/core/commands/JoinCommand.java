@@ -2,6 +2,7 @@ package core.commands;
 
 import com.google.inject.Inject;
 import core.game.server.IGameServer;
+import core.primitives.Rank;
 
 public class JoinCommand implements ICommand {
 
@@ -15,9 +16,10 @@ public class JoinCommand implements ICommand {
   @Override
   public ExecuteResult execute(String callerUserName, Arguments arguments) {
     var id = arguments.getArgument("id");
-    var mode = arguments.getArgument("mode");
-    var targetSession = gameServer.getSessionById(id);
-    return null;
+    var rank = Rank.valueOf(arguments.getArgument("rank").toUpperCase());
+//    var targetSession = gameServer.getSessionById(id);
+
+    return new ExecuteResult(rank.toString(), null);
   }
 
   @Override
@@ -27,6 +29,6 @@ public class JoinCommand implements ICommand {
 
   @Override
   public String getFormat() {
-    return "/join $id $mode";
+    return "/join $id $rank";
   }
 }
