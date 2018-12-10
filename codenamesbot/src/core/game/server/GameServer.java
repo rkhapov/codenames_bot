@@ -50,7 +50,7 @@ public class GameServer implements IGameServer {
   @Override
   public User getUserByName(String name) {
     if (!nameToUser.containsKey(name)) {
-      nameToUser.put(name, new User(name, null, null));
+      nameToUser.put(name, new User(name, null));
     }
     return nameToUser.get(name);
   }
