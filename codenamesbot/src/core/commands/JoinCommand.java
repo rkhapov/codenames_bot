@@ -17,7 +17,7 @@ public class JoinCommand implements ICommand {
   public ExecuteResult execute(String callerUserName, Arguments arguments) {
     var id = arguments.getArgument("id");
     var rank = Rank.valueOf(arguments.getArgument("rank").toUpperCase());
-//    var targetSession = gameServer.getSessionById(id);
+    var targetSession = gameServer.getSessionById(id);
 
     return new ExecuteResult(rank.toString(), null);
   }
