@@ -39,6 +39,10 @@ public class Field {
     return cards;
   }
 
+  public boolean hasCard(String word) {
+    return wordToCard.containsKey(word);
+  }
+
   public Card open(String word) {
     var card = getCard(word);
 
