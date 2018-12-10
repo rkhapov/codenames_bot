@@ -40,6 +40,14 @@ public class GameServer implements IGameServer {
   @Override
   public void deleteSession(String id) {
     idToSession.remove(id);
+
+    for (var name : nameToUser.keySet()) {
+      var user = nameToUser.get(name);
+
+      if (user.getCurrentSession().getId().equals(id)) {
+        user.setCurrentSession(null);
+      }
+    }
   }
 
   @Override
