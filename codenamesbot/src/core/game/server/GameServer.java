@@ -5,6 +5,7 @@ import com.google.inject.Provider;
 import core.game.IGame;
 import core.primitives.User;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,7 +27,7 @@ public class GameServer implements IGameServer {
   }
 
   @Override
-  public Session startNew(User redCaptain, User blueCaptain) {
+  public Session startNew() {
     var session = createNewSession();
 
     idToSession.put(session.getId(), session);
@@ -36,12 +37,12 @@ public class GameServer implements IGameServer {
 
   @Override
   public Session getSessionById(String id) {
-    return null;
+    return idToSession.get(id);
   }
 
   @Override
   public Set<Session> getSessions() {
-    return null;
+    return new HashSet<>(idToSession.values());
   }
 
   private Session createNewSession() {

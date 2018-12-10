@@ -3,6 +3,7 @@ package tools.di;
 import bot.BotAuthenticationData;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
+import core.commands.GetPictureCommand;
 import core.commands.ICommand;
 import core.commands.OpenCardCommand;
 import core.commands.StartNewGameCommand;
@@ -72,6 +73,7 @@ public class BasicModule extends AbstractModule {
 
     binder.addBinding().to(OpenCardCommand.class);
     binder.addBinding().to(StartNewGameCommand.class);
+    binder.addBinding().to(GetPictureCommand.class);
   }
 
   private void doMultiBindForDictionaries() {

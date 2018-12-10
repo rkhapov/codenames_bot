@@ -5,7 +5,7 @@ import java.util.Set;
 
 public interface IGameServer {
 
-  Session startNew(User redCaptain, User blueCaptain);
+  Session startNew();
 
   Session getSessionById(String id);
 
