@@ -10,4 +10,6 @@ public interface IGameServer {
   Session getSessionById(String id);
 
   Set<Session> getSessions();
+
+  User getUserByName(String name);
 }

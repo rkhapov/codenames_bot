@@ -20,26 +20,18 @@ public class FieldGenerator implements IFieldGenerator {
 
   public Field generate() throws GeneratorException {
     return new Field(generate(
-        cardsGenerator, Constants.FIELD_HEIGHT, Constants.FIELD_WIDTH,
-        Constants.BLUE_WORDS_COUNT, Constants.RED_WORDS_COUNT));
+        cardsGenerator,
+        Constants.FIELD_HEIGHT, Constants.FIELD_WIDTH,
+        Constants.BLUE_WORDS_COUNT, Constants.RED_WORDS_COUNT),
+        Constants.FIELD_HEIGHT, Constants.FIELD_WIDTH);
   }
 
-  private List<List<Card>> generate(
+  private List<Card> generate(
       ICardsGenerator cardsGenerator,
       int height, int width, int blue, int red) throws GeneratorException {
-    var field = new ArrayList<List<Card>>(height);
-    var cards = cardsGenerator.getCards(height * width, blue, red);
+    var amount = height * width;
+    var cards = cardsGenerator.getCards(amount, blue, red);
 
-    for (var i = 0; i < height; i++) {
-      field.add(new ArrayList<>(width));
-
-      for (var j = 0; j < width; j++) {
-        var card = cards.get(i * width + j);
-
-        field.get(i).add(card);
-      }
-    }
-
-    return field;
+    return cards;
   }
 }

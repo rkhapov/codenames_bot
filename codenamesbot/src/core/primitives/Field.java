@@ -7,23 +7,19 @@ import java.util.Map;
 
 public class Field {
 
-  private final List<List<Card>> field;
+  private final List<Card> cards;
   private final Map<String, Card> wordToCard;
   private final int height;
   private final int width;
 
-  public Field(List<List<Card>> field) {
-    this.field = field;
-    height = field.size();
-    width = field.get(0).size();
+  public Field(List<Card> field, int height, int width) {
+    this.cards = field;
+    this.height = height;
+    this.width = width;
     wordToCard = new HashMap<>();
 
-    for (var i = 0; i < height; i++) {
-      for (var j = 0; j < width; j++) {
-        var card = field.get(i).get(j);
-
-        wordToCard.put(card.getWord(), card);
-      }
+    for (var i = 0; i < field.size(); i++){
+      wordToCard.put(field.get(i).getWord(), field.get(i));
     }
   }
 
@@ -40,7 +36,7 @@ public class Field {
   }
 
   public List<Card> getCards() {
-    return new ArrayList<>(wordToCard.values());
+    return cards;
   }
 
   public void open(String word) {
@@ -49,7 +45,7 @@ public class Field {
     card.open();
   }
 
-  public Card get(int i, int j) {
-    return field.get(i).get(j);
+  public Card get(int row, int column) {
+    return cards.get(row * height + column);
   }
 }
