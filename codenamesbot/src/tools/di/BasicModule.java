@@ -3,6 +3,7 @@ package tools.di;
 import bot.BotAuthenticationData;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
+import core.commands.DeleteSession;
 import core.commands.GetStateCommand;
 import core.commands.ICommand;
 import core.commands.JoinCommand;
@@ -82,6 +83,7 @@ public class BasicModule extends AbstractModule {
     binder.addBinding().to(StartNewGameCommand.class);
     binder.addBinding().to(GetStateCommand.class);
     binder.addBinding().to(JoinCommand.class);
+    binder.addBinding().to(DeleteSession.class);
   }
 
   private void doMultiBindForDictionaries() {

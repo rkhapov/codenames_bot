@@ -38,6 +38,11 @@ public class GameServer implements IGameServer {
   }
 
   @Override
+  public void deleteSession(String id) {
+    idToSession.remove(id);
+  }
+
+  @Override
   public Session getSessionById(String id) {
     return idToSession.get(id);
   }
