@@ -36,4 +36,22 @@ public class Arguments {
   public int size() {
     return nameToValue.size();
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) {
+      return false;
+    }
+
+    if (obj instanceof Arguments) {
+      return nameToValue.equals(((Arguments) obj).nameToValue);
+    }
+
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return nameToValue.hashCode();
+  }
 }
