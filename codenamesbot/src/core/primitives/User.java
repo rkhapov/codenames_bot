@@ -1,7 +1,6 @@
 package core.primitives;
 
 import core.game.server.Session;
-import java.util.Random;
 
 public class User {
   private final String name;
