@@ -1,7 +1,6 @@
 package core.commands;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import java.util.Set;
 import tools.Lazy;
 
@@ -10,8 +9,8 @@ public class HelpCommand implements ICommand{
   private final Lazy<Set<ICommand>> commands;
 
   @Inject
-  public HelpCommand(Provider<Set<ICommand>> commandsProvider) {
-    this.commands = new Lazy<>(commandsProvider);
+  public HelpCommand(Lazy<Set<ICommand>> commands) {
+    this.commands = commands;
   }
 
   @Override

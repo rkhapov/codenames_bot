@@ -4,6 +4,8 @@ import bot.BotAuthenticationData;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provider;
 import com.google.inject.multibindings.Multibinder;
+import com.google.inject.name.Named;
+import com.google.inject.name.Names;
 import core.commands.DeleteSession;
 import core.commands.GetStateCommand;
 import core.commands.HelpCommand;
