@@ -40,4 +40,9 @@ public class JoinCommand implements ICommand {
   public String getFormat() {
     return "/join $id $rank";
   }
+
+  @Override
+  public String getHelp() {
+    return "joins to an existing session";
+  }
 }

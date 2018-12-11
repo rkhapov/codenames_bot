@@ -41,11 +41,16 @@ public class GetStateCommand implements ICommand {
 
   @Override
   public String getName() {
-    return "/get_state";
+    return "/state";
   }
 
   @Override
   public String getFormat() {
-    return "/get_state";
+    return "/state";
+  }
+
+  @Override
+  public String getHelp() {
+    return "sends info about session";
   }
 }

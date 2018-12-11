@@ -34,4 +34,9 @@ public class DeleteSession implements ICommand {
   public String getFormat() {
     return "/delete $id";
   }
+
+  @Override
+  public String getHelp() {
+    return "delete existing session";
+  }
 }

@@ -43,4 +43,9 @@ public class OpenCardCommand implements ICommand {
   public String getFormat() {
     return "/open $word";
   }
+
+  @Override
+  public String getHelp() {
+    return "opens card with given word";
+  }
 }

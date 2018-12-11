@@ -28,4 +28,9 @@ public class StartNewGameCommand implements ICommand {
   public String getFormat() {
     return "/start";
   }
+
+  @Override
+  public String getHelp() {
+    return "starts new session";
+  }
 }

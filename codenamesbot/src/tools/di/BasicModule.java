@@ -5,6 +5,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 import core.commands.DeleteSession;
 import core.commands.GetStateCommand;
+import core.commands.HelpCommand;
 import core.commands.ICommand;
 import core.commands.JoinCommand;
 import core.commands.OpenCardCommand;
@@ -84,6 +85,7 @@ public class BasicModule extends AbstractModule {
     binder.addBinding().to(GetStateCommand.class);
     binder.addBinding().to(JoinCommand.class);
     binder.addBinding().to(DeleteSession.class);
+    binder.addBinding().to(HelpCommand.class);
   }
 
   private void doMultiBindForDictionaries() {

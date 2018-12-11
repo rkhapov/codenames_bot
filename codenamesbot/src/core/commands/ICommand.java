@@ -7,4 +7,6 @@ public interface ICommand {
   String getName();
 
   String getFormat();
+
+  String getHelp();
 }
