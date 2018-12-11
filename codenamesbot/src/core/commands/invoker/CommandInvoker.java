@@ -32,7 +32,7 @@ public class CommandInvoker implements ICommandInvoker {
     var tokens = tokenizer.getTokens(commandLine);
     var command = getCommand(tokens);
     if (command == null)
-      return new ExecuteResult("Unknown command", null);
+      return new ExecuteResult("Unknown command");
     var arguments = buildArguments(tokens, command);
     if (arguments == null)
       return new ExecuteResult("Wrong arguments. Arguments template: " + command.getFormat(),

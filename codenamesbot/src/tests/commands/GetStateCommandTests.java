@@ -33,7 +33,6 @@ public class GetStateCommandTests {
   public GetStateCommandTests() {
   }
 
-
   @BeforeEach
   public void init() {
     gameServer = mock(IGameServer.class);

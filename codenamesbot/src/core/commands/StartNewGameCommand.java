@@ -16,7 +16,7 @@ public class StartNewGameCommand implements ICommand {
   @Override
   public ExecuteResult execute(String callerUserName, Arguments arguments) {
     var session = gameServer.startNew();
-    return new ExecuteResult(String.format("New game started. ID: %s", session.getId()), null);
+    return new ExecuteResult(String.format("New game started. ID: %s", session.getId()));
   }
 
   @Override
