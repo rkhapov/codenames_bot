@@ -1,21 +1,23 @@
 package core.commands;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import java.util.Set;
+import tools.Lazy;
 
 public class HelpCommand implements ICommand{
 
-  private final Set<ICommand> commands;
+  private final Lazy<Set<ICommand>> commands;
 
   @Inject
-  public HelpCommand(Set<ICommand> commands) {
-    this.commands = commands;
+  public HelpCommand(Provider<Set<ICommand>> commandsProvider) {
+    this.commands = new Lazy<>(commandsProvider);
   }
 
   @Override
   public ExecuteResult execute(String callerUserName, Arguments arguments) {
     var result = new StringBuilder();
-    for (var command : commands) {
+    for (var command : commands.getValue()) {
       result.append(command.getFormat());
       result.append(" ");
       result.append(command.getHelp());
@@ -23,6 +25,7 @@ public class HelpCommand implements ICommand{
     }
     return new ExecuteResult(result.toString());
   }
+
 
   @Override
   public String getName() {
