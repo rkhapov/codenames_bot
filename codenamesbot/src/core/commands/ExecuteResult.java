@@ -8,6 +8,11 @@ public class ExecuteResult {
   private final String message;
   private final List<BufferedImage> images;
 
+  public ExecuteResult() {
+    message = null;
+    images = null;
+  }
+
   public ExecuteResult(String message) {
     this.message = message;
     images = null;
