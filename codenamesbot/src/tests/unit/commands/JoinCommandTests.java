@@ -30,26 +30,36 @@ public class JoinCommandTests {
 
   @Test
   public void execute_withNonExistentId_returnsCorrectWarningMessage() {
-    var arguments = new Arguments();
-    arguments.addArgument("id", "1");
+    var arguments =
+        new Arguments()
+        .addArgument("id", "1");
+
     var result = joincommand.execute("user", arguments);
+
     assertThat(result.getMessage()).isEqualTo("There is no such session");
   }
 
   @Test
   public void execute_withIncorrectRank_returnsCorrectWarningMessage() {
-    var arguments = new Arguments();
-    arguments.addArgument("id", "1234").addArgument("rank", "ololo");
+    var arguments =
+        new Arguments()
+            .addArgument("id", "1234")
+            .addArgument("rank", "ololo");
+
     var result = joincommand.execute("user", arguments);
+
     assertThat(result.getMessage()).isEqualTo("Ranks: captain | player");
   }
 
 
   @Test
   public void execute_withCorrectArguments_returnsCorrectMessage() {
-    var arguments = new Arguments();
-    arguments.addArgument("id", "1234").addArgument("rank", "player");
+    var arguments = new Arguments()
+        .addArgument("id", "1234")
+        .addArgument("rank", "player");
+
     var result = joincommand.execute("user", arguments);
+
     assertThat(result.getMessage()).isEqualTo("You have successfully joined");
   }
 }
