@@ -1,4 +1,4 @@
-package tests.commands;
+package tests.unit.commands;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;

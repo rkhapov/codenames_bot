@@ -1,4 +1,4 @@
-package tests.commands;
+package tests.unit.commands;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
