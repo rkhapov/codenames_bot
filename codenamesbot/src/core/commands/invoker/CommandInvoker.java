@@ -31,19 +31,20 @@ public class CommandInvoker implements ICommandInvoker {
   public ExecuteResult execute(String commandLine, String callerUserName) {
     var tokens = tokenizer.getTokens(commandLine);
     var command = getCommand(tokens);
-    if (command == null)
-      return new ExecuteResult("Unknown command");
+    if (command == null) {
+      return new ExecuteResult("Unknown command. See /help for more");
+    }
     var arguments = buildArguments(tokens, command);
-    if (arguments == null)
+    if (arguments == null) {
       return new ExecuteResult("Wrong arguments. Arguments template: " + command.getFormat(),
           null);
+    }
 
     try {
       var result = command.execute(callerUserName, arguments);
 
       return result;
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       return new ExecuteResult("Exception: " + e.getMessage(), null);
     }
   }
