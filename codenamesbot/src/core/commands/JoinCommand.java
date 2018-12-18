@@ -2,6 +2,7 @@ package core.commands;
 
 import com.google.inject.Inject;
 import core.game.server.IGameServer;
+import core.primitives.Color;
 import core.primitives.Rank;
 
 public class JoinCommand implements ICommand {
@@ -17,6 +18,7 @@ public class JoinCommand implements ICommand {
   public ExecutionResult execute(String callerUserName, Arguments arguments, Long chatId) {
     try {
       var id = arguments.getArgument("id");
+      var color = Color.valueOf(arguments.getArgument("color").toUpperCase());
       var targetSession = gameServer.getSessionById(id);
       if (targetSession == null) {
 
@@ -25,15 +27,16 @@ public class JoinCommand implements ICommand {
 
       var rank = Rank.valueOf(arguments.getArgument("rank").toUpperCase());
 
-      if (gameServer.getUsers().stream().filter(user -> user.getRank() == Rank.CAPTAIN).count() == 2
+      if (gameServer.getUsers().stream()
+          .filter(user -> user.getRank() == Rank.CAPTAIN && user.getColor() == color).count() == 1
           && rank == Rank.CAPTAIN) {
-        return ExecutionResult.create("There are exactly 2 captains in the session already");
+        return ExecutionResult.create("Illegal number of captains");
       }
 
-      gameServer.createNewUser(callerUserName, rank, targetSession, chatId);
+      gameServer.createNewUser(callerUserName, rank, targetSession, chatId, color);
 
     } catch (IllegalArgumentException e) {
-      return ExecutionResult.create("Ranks: captain | player");
+      return ExecutionResult.create("Ranks: captain | player. Colors: red | blue");
     }
 
     return ExecutionResult.create("You have successfully joined");
@@ -46,7 +49,7 @@ public class JoinCommand implements ICommand {
 
   @Override
   public String getFormat() {
-    return "/join $id $rank";
+    return "/join $id $rank $color";
   }
 
   @Override

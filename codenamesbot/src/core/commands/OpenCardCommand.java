@@ -25,6 +25,9 @@ public class OpenCardCommand implements ICommand {
     var session = gameServer.getSessionByUser(user);
 
     var game = session.getGame();
+    if (game.getNextTurnColor() != user.getColor()) {
+      return ExecutionResult.create("It is not your turn");
+    }
     if (!game.hasCard(word)) {
       return ExecutionResult.create("There is no such word");
     }

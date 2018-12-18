@@ -1,5 +1,6 @@
 package core.game.server;
 
+import core.primitives.Color;
 import core.primitives.Rank;
 import core.primitives.User;
 import java.util.Set;
@@ -20,5 +21,5 @@ public interface IGameServer {
 
   User getUserByName(String name);
 
-  void createNewUser(String name, Rank rank, Session session, Long chatId);
+  void createNewUser(String name, Rank rank, Session session, Long chatId, Color color);
 }

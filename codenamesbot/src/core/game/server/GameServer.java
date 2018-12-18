@@ -3,6 +3,7 @@ package core.game.server;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import core.game.IGame;
+import core.primitives.Color;
 import core.primitives.Rank;
 import core.primitives.User;
 import java.util.HashMap;
@@ -80,8 +81,8 @@ public class GameServer implements IGameServer {
     return nameToUser.get(name);
   }
 
-  public void createNewUser(String name, Rank rank, Session session, Long chatId) {
-    var user = new User(name, rank, chatId);
+  public void createNewUser(String name, Rank rank, Session session, Long chatId, Color color) {
+    var user = new User(name, rank, chatId, color);
 
     nameToUser.put(name, user);
     putUserToSession(user, session);

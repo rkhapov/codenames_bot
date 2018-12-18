@@ -28,7 +28,11 @@ public class SayCommand implements ICommand {
     var msg = arguments.getArgument("msg");
 
     return ExecutionResult
-        .createOnlyGroupMessage(List.of(new GroupMessage(new ArrayList<>(gameServer.getUsers()), msg)));
+        .createOnlyGroupMessage(List.of(new GroupMessage(
+            gameServer.getUsers().stream()
+                .filter(user1 -> user1.getColor() == user.getColor() && user1 != user)
+                .collect(
+                    Collectors.toList()), msg)));
   }
 
   @Override
