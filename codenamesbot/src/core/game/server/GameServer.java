@@ -55,6 +55,11 @@ public class GameServer implements IGameServer {
   }
 
   @Override
+  public Session getSessionByUser(User user) {
+    return userToSession.get(user);
+  }
+
+  @Override
   public Session getSessionById(String id) {
     return idToSession.get(id);
   }

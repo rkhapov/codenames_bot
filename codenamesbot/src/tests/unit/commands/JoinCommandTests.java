@@ -25,7 +25,7 @@ public class JoinCommandTests {
     when(session.getId()).thenReturn("1234");
     when(server.getSessionById("1234")).thenReturn(session);
     joincommand = new JoinCommand(server);
-    when(server.getUserByName(any())).thenReturn(new User("user", session));
+    when(server.getUserByName(any())).thenReturn(new User("user"));
   }
 
   @Test
