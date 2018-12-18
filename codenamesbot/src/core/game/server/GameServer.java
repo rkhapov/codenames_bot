@@ -20,6 +20,7 @@ public class GameServer implements IGameServer {
   private final Provider<IGame> gameProvider;
   private final Map<String, User> nameToUser;
   private final Map<String, Session> idToSession;
+  private final Map<User, Session> userToSession;
 
   @Inject
   public GameServer(Provider<IGame> gameProvider) {
