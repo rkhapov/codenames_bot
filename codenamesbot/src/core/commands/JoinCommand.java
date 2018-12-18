@@ -21,13 +21,20 @@ public class JoinCommand implements ICommand {
       if (targetSession == null) {
         return new ExecuteResult("There is no such session");
       }
-      var user = gameServer.getUserByName(callerUserName);
+
       var rank = Rank.valueOf(arguments.getArgument("rank").toUpperCase());
-      user.setRank(rank);
-      gameServer.putUserToSession(user, targetSession);
+
+      if (gameServer.getUsers().stream().filter(user -> user.getRank() == Rank.CAPTAIN).count() == 2
+          && rank == Rank.CAPTAIN) {
+        return new ExecuteResult("There are exactly 2 captains in the session already");
+      }
+
+      gameServer.createNewUser(callerUserName, rank, targetSession);
+
     } catch (IllegalArgumentException e) {
       return new ExecuteResult("Ranks: captain | player");
     }
+
     return new ExecuteResult("You have successfully joined");
   }
 

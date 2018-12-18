@@ -1,17 +1,11 @@
 package core.primitives;
 
-import core.game.server.Session;
-
 public class User {
   private final String name;
-  private Rank rank;
+  private final Rank rank;
 
-  public User(String name) {
-    this.rank = null;
+  public User(String name, Rank rank) {
     this.name = name;
-  }
-
-  public void setRank(Rank rank) {
     this.rank = rank;
   }
 

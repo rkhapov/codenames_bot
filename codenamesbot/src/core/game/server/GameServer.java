@@ -3,6 +3,7 @@ package core.game.server;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import core.game.IGame;
+import core.primitives.Rank;
 import core.primitives.User;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -46,11 +47,12 @@ public class GameServer implements IGameServer {
     for (var pair : new HashSet<>(userToSession.entrySet())) {
       if (pair.getValue().getId().equals(id)) {
         userToSession.remove(pair.getKey());
+        nameToUser.remove(pair.getKey().getName());
       }
     }
   }
 
-  public void putUserToSession(User user, Session session) {
+  private void putUserToSession(User user, Session session) {
     userToSession.put(user, session);
   }
 
@@ -69,12 +71,20 @@ public class GameServer implements IGameServer {
     return new HashSet<>(idToSession.values());
   }
 
+  public Set<User> getUsers() {
+    return new HashSet<>(nameToUser.values());
+  }
+
   @Override
   public User getUserByName(String name) {
-    if (!nameToUser.containsKey(name)) {
-      nameToUser.put(name, new User(name));
-    }
     return nameToUser.get(name);
+  }
+
+  public void createNewUser(String name, Rank rank, Session session) {
+    var user = new User(name, rank);
+
+    nameToUser.put(name, user);
+    putUserToSession(user, session);
   }
 
   private Session createNewSession() {
