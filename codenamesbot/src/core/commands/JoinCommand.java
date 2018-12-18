@@ -24,7 +24,7 @@ public class JoinCommand implements ICommand {
       var user = gameServer.getUserByName(callerUserName);
       var rank = Rank.valueOf(arguments.getArgument("rank").toUpperCase());
       user.setRank(rank);
-      user.setCurrentSession(targetSession);
+      gameServer.putUserToSession(user, targetSession);
     } catch (IllegalArgumentException e) {
       return new ExecuteResult("Ranks: captain | player");
     }

@@ -9,6 +9,8 @@ public interface IGameServer {
 
   void deleteSession(String id);
 
+  void putUserToSession(User user, Session session);
+
   Session getSessionById(String id);
 
   Set<Session> getSessions();
