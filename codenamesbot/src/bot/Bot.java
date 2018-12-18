@@ -1,7 +1,7 @@
 package bot;
 
 import com.google.inject.Inject;
-import core.commands.ExecuteResult;
+import core.commands.ExecutionResult;
 import core.commands.invoker.ICommandInvoker;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -32,19 +32,28 @@ public class Bot extends TelegramLongPollingBot {
     var text = message.getText();
     var id = update.getMessage().getChatId();
 
-    var result = commandInvoker.execute(text, update.getMessage().getChat().getUserName());
+    var result = commandInvoker.execute(text, update.getMessage().getChat().getUserName(), id);
 
     sendResult(id, result);
   }
 
-  private void sendResult(Long id, ExecuteResult result) {
+  private void sendResult(Long id, ExecutionResult result) {
     try {
       if (result.getMessage() != null) {
         sendMessage(result.getMessage(), id);
       }
+
       if (result.getImages() != null) {
         for (var img : result.getImages()) {
           sendPhoto(id, img);
+        }
+      }
+
+      if (result.getGroupMessages() != null) {
+        for (var msg: result.getGroupMessages()) {
+          for (var u : msg.getReceivers()) {
+            sendMessage(msg.getMessage(), u.getChatId());
+          }
         }
       }
     } catch (TelegramApiException e) {

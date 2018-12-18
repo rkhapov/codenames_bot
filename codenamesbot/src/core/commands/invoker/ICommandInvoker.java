@@ -1,7 +1,7 @@
 package core.commands.invoker;
 
-import core.commands.ExecuteResult;
+import core.commands.ExecutionResult;
 
 public interface ICommandInvoker {
-  ExecuteResult execute(String commandLine, String callerUserName);
+  ExecutionResult execute(String commandLine, String callerUserName, Long chatId);
 }

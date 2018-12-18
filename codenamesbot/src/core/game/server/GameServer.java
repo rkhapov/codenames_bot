@@ -80,8 +80,8 @@ public class GameServer implements IGameServer {
     return nameToUser.get(name);
   }
 
-  public void createNewUser(String name, Rank rank, Session session) {
-    var user = new User(name, rank);
+  public void createNewUser(String name, Rank rank, Session session, Long chatId) {
+    var user = new User(name, rank, chatId);
 
     nameToUser.put(name, user);
     putUserToSession(user, session);

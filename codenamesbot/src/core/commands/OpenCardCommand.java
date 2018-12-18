@@ -3,8 +3,6 @@ package core.commands;
 import com.google.inject.Inject;
 import core.game.server.IGameServer;
 import core.primitives.Rank;
-import java.util.List;
-import java.util.Random;
 
 public class OpenCardCommand implements ICommand {
 
@@ -16,21 +14,22 @@ public class OpenCardCommand implements ICommand {
   }
 
   @Override
-  public ExecuteResult execute(String callerUserName, Arguments arguments) {
+  public ExecutionResult execute(String callerUserName, Arguments arguments, Long chatId) {
     var word = arguments.getArgument("word");
     var user = gameServer.getUserByName(callerUserName);
     if (user.getRank() == Rank.CAPTAIN) {
-      return new ExecuteResult("You cannot open cards!");
+
+      return ExecutionResult.create("You cannot open cards!");
     }
 
     var session = gameServer.getSessionByUser(user);
 
     var game = session.getGame();
     if (!game.hasCard(word)) {
-      return new ExecuteResult("There is no such word");
+      return ExecutionResult.create("There is no such word");
     }
 
-    return new ExecuteResult(
+    return ExecutionResult.create(
         String.format("Successfully opened card. Color: %s", game.openCard(word).getColor()));
   }
 

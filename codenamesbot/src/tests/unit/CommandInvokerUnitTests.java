@@ -9,7 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import core.commands.Arguments;
-import core.commands.ExecuteResult;
+import core.commands.ExecutionResult;
 import core.commands.GetStateCommand;
 import core.commands.HelpCommand;
 import core.commands.ICommand;
@@ -60,23 +60,23 @@ public class CommandInvokerUnitTests {
     var m = mock(clazz);
     when(m.getName()).thenReturn(name);
     when(m.getFormat()).thenReturn(format);
-    when(m.execute(any(), any())).thenReturn(new ExecuteResult());
+    when(m.execute(any(), any(), any())).thenReturn(ExecutionResult.create());
 
     return m;
   }
 
   @Test
   public void invoke_withStartString_shouldCallStartCommand() {
-    invoker.execute("/start", "user");
+    invoker.execute("/start", "user", null);
 
-    verify(startNewGameCommand, times(1)).execute(any(), any());
+    verify(startNewGameCommand, times(1)).execute(any(), any(), any());
   }
 
   @Test
   public void invoke_withHelpCommand_shouldCallHelpCommand() {
-    invoker.execute("/help", "user");
+    invoker.execute("/help", "user", null);
 
-    verify(helpCommand, times(1)).execute(any(), any());
+    verify(helpCommand, times(1)).execute(any(), any(), any());
   }
 
   @Test
@@ -86,9 +86,9 @@ public class CommandInvokerUnitTests {
             .addArgument("id", "lal")
             .addArgument("rank", "klal");
 
-    invoker.execute("/join lal klal", "user");
+    invoker.execute("/join lal klal", "user", null);
 
-    verify(joinCommand, times(1)).execute(any(), eq(expectedArguments));
+    verify(joinCommand, times(1)).execute(any(), eq(expectedArguments), any());
   }
 
   @Test
@@ -96,15 +96,15 @@ public class CommandInvokerUnitTests {
     var expectedArguments = new Arguments()
         .addArgument("word", "myword");
 
-    invoker.execute("/open myword", "user");
+    invoker.execute("/open myword", "user", null);
 
-    verify(openCardCommand, times(1)).execute(any(), eq(expectedArguments));
+    verify(openCardCommand, times(1)).execute(any(), eq(expectedArguments), any());
   }
 
   @Test
   public void invoke_withStateCommand_shouldCallStateCommand() {
-    invoker.execute("/state", "user");
+    invoker.execute("/state", "user", null);
 
-    verify(getStateCommand, times(1)).execute(any(), any());
+    verify(getStateCommand, times(1)).execute(any(), any(), any());
   }
 }

@@ -2,7 +2,6 @@ package core.commands;
 
 import com.google.inject.Inject;
 import core.game.server.IGameServer;
-import java.util.List;
 
 public class StartNewGameCommand implements ICommand {
 
@@ -14,9 +13,10 @@ public class StartNewGameCommand implements ICommand {
   }
 
   @Override
-  public ExecuteResult execute(String callerUserName, Arguments arguments) {
+  public ExecutionResult execute(String callerUserName, Arguments arguments, Long chatId) {
     var session = gameServer.startNew();
-    return new ExecuteResult(String.format("New game started. ID: %s", session.getId()));
+
+    return ExecutionResult.create(String.format("New game started. ID: %s", session.getId()));
   }
 
   @Override

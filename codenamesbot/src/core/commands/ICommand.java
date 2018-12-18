@@ -2,7 +2,7 @@ package core.commands;
 
 public interface ICommand {
 
-  ExecuteResult execute(String callerUserName, Arguments arguments);
+  ExecutionResult execute(String callerUserName, Arguments arguments, Long chatId);
 
   String getName();
 

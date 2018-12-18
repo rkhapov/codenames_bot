@@ -14,7 +14,7 @@ public class HelpCommand implements ICommand{
   }
 
   @Override
-  public ExecuteResult execute(String callerUserName, Arguments arguments) {
+  public ExecutionResult execute(String callerUserName, Arguments arguments, Long chatId) {
     var result = new StringBuilder();
     for (var command : commands.getValue()) {
       result.append(command.getFormat());
@@ -22,7 +22,8 @@ public class HelpCommand implements ICommand{
       result.append(command.getHelp());
       result.append("\n");
     }
-    return new ExecuteResult(result.toString());
+
+    return ExecutionResult.create(result.toString());
   }
 
 

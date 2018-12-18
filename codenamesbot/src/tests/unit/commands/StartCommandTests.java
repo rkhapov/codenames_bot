@@ -28,13 +28,13 @@ public class StartCommandTests {
 
   @Test
   public void execute_shouldCallStartNewOnce() {
-    startCommand.execute("user", null);
+    startCommand.execute("user", null, null);
     verify(server, times(1)).startNew();
   }
 
   @Test
   public void execute_returnsCorrectMessage() {
-    var result = startCommand.execute("user", null);
+    var result = startCommand.execute("user", null, null);
     assertThat(result.getMessage().substring(22)).isEqualTo("1234");
   }
 }

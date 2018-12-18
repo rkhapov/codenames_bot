@@ -12,6 +12,7 @@ import core.commands.HelpCommand;
 import core.commands.ICommand;
 import core.commands.JoinCommand;
 import core.commands.OpenCardCommand;
+import core.commands.SayCommand;
 import core.commands.StartNewGameCommand;
 import core.commands.invoker.CommandInvoker;
 import core.commands.invoker.ICommandInvoker;
@@ -91,6 +92,7 @@ public class BasicModule extends AbstractModule {
     binder.addBinding().to(JoinCommand.class);
     binder.addBinding().to(DeleteSession.class);
     binder.addBinding().to(HelpCommand.class);
+    binder.addBinding().to(SayCommand.class);
   }
 
   private void doMultiBindForDictionaries() {

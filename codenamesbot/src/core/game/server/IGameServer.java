@@ -20,5 +20,5 @@ public interface IGameServer {
 
   User getUserByName(String name);
 
-  void createNewUser(String name, Rank rank, Session session);
+  void createNewUser(String name, Rank rank, Session session, Long chatId);
 }

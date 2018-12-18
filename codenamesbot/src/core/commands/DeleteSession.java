@@ -13,16 +13,16 @@ public class DeleteSession implements ICommand {
   }
 
   @Override
-  public ExecuteResult execute(String callerUserName, Arguments arguments) {
+  public ExecutionResult execute(String callerUserName, Arguments arguments, Long chatId) {
     var session = gameServer.getSessionById(arguments.getArgument("id"));
 
     if (session == null) {
-      return new ExecuteResult("No that session");
+      return ExecutionResult.create("No that session");
     }
 
     gameServer.deleteSession(session.getId());
 
-    return new ExecuteResult("Successfully delete session " + session.getId());
+    return ExecutionResult.create("Successfully delete session " + session.getId());
   }
 
   @Override

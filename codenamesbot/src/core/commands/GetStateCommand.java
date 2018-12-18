@@ -1,9 +1,7 @@
 package core.commands;
 
 import com.google.inject.Inject;
-import core.game.IGame;
 import core.game.server.IGameServer;
-import core.game.server.Session;
 import core.graphics.IDrawerSelector;
 import java.util.List;
 
@@ -19,13 +17,13 @@ public class GetStateCommand implements ICommand {
   }
 
   @Override
-  public ExecuteResult execute(String callerUserName, Arguments arguments) {
+  public ExecutionResult execute(String callerUserName, Arguments arguments, Long chatId) {
     var user = gameServer.getUserByName(callerUserName);
     var rank = user.getRank();
     var session = gameServer.getSessionByUser(user);
 
     if (session == null) {
-      return new ExecuteResult("You should join to game first");
+      return ExecutionResult.create("You should join to game first");
     }
 
     var game = session.getGame();
@@ -36,7 +34,7 @@ public class GetStateCommand implements ICommand {
         game.getNextTurnColor());
     var image = drawer.getImage(field);
 
-    return new ExecuteResult(message, List.of(image));
+    return ExecutionResult.createImagesWithMessage(message, List.of(image));
   }
 
   @Override

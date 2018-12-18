@@ -2,7 +2,7 @@ package core.commands.invoker;
 
 import com.google.inject.Inject;
 import core.commands.Arguments;
-import core.commands.ExecuteResult;
+import core.commands.ExecutionResult;
 import core.commands.ICommand;
 import java.util.HashMap;
 import java.util.List;
@@ -28,24 +28,23 @@ public class CommandInvoker implements ICommandInvoker {
 
 
   @Override
-  public ExecuteResult execute(String commandLine, String callerUserName) {
+  public ExecutionResult execute(String commandLine, String callerUserName, Long chatId) {
     var tokens = tokenizer.getTokens(commandLine);
     var command = getCommand(tokens);
     if (command == null) {
-      return new ExecuteResult("Unknown command. See /help for more");
+      return ExecutionResult.create("Unknown command. See /help for more");
     }
     var arguments = buildArguments(tokens, command);
     if (arguments == null) {
-      return new ExecuteResult("Wrong arguments. Arguments template: " + command.getFormat(),
-          null);
+      return ExecutionResult.create("Wrong arguments. Arguments template: " + command.getFormat());
     }
 
     try {
-      var result = command.execute(callerUserName, arguments);
+      var result = command.execute(callerUserName, arguments, chatId);
 
       return result;
     } catch (Exception e) {
-      return new ExecuteResult("Exception: " + e.getMessage(), null);
+      return ExecutionResult.create("Exception: " + e.getMessage());
     }
   }
 
