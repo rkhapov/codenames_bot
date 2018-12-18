@@ -22,7 +22,7 @@ public class GetStateCommand implements ICommand {
   public ExecuteResult execute(String callerUserName, Arguments arguments) {
     var user = gameServer.getUserByName(callerUserName);
     var rank = user.getRank();
-    var session = user.getCurrentSession();
+    var session = gameServer.getSessionByUser(user);
 
     if (session == null) {
       return new ExecuteResult("You should join to game first");

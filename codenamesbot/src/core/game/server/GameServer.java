@@ -27,6 +27,7 @@ public class GameServer implements IGameServer {
     this.gameProvider = gameProvider;
     idToSession = new HashMap<>();
     nameToUser = new HashMap<>();
+    userToSession = new HashMap<>();
   }
 
   @Override
@@ -42,13 +43,20 @@ public class GameServer implements IGameServer {
   public void deleteSession(String id) {
     idToSession.remove(id);
 
-    for (var name : nameToUser.keySet()) {
-      var user = nameToUser.get(name);
-
-      if (user.getCurrentSession().getId().equals(id)) {
-        user.setCurrentSession(null);
+    for (var pair : new HashSet<>(userToSession.entrySet())) {
+      if (pair.getValue().getId().equals(id)) {
+        userToSession.remove(pair.getKey());
       }
     }
+  }
+
+  public void putUserToSession(User user, Session session) {
+    userToSession.put(user, session);
+  }
+
+  @Override
+  public Session getSessionByUser(User user) {
+    return userToSession.get(user);
   }
 
   @Override
@@ -64,7 +72,7 @@ public class GameServer implements IGameServer {
   @Override
   public User getUserByName(String name) {
     if (!nameToUser.containsKey(name)) {
-      nameToUser.put(name, new User(name, null));
+      nameToUser.put(name, new User(name));
     }
     return nameToUser.get(name);
   }

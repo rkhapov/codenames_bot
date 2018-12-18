@@ -23,12 +23,8 @@ public class OpenCardCommand implements ICommand {
       return new ExecuteResult("You cannot open cards!");
     }
 
-    var id = user.getCurrentSession();
-    if (id == null) {
-      return new ExecuteResult("There is no such session");
-    }
+    var session = gameServer.getSessionByUser(user);
 
-    var session = gameServer.getSessionById(id.getId());
     var game = session.getGame();
     if (!game.hasCard(word)) {
       return new ExecuteResult("There is no such word");
